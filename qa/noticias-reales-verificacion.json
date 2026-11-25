@@ -1,0 +1,79 @@
+{
+  "checkedAt": "2026-11-18T21:47:11.863Z",
+  "scope": "Lector RSS local solicitado; no constituye permiso de republicación pública",
+  "sources": [
+    {
+      "source": "bloomberg",
+      "count": 21,
+      "earliest": "2026-11-18T09:00:00.000Z",
+      "latest": "2026-11-18T20:10:30.000Z"
+    },
+    {
+      "source": "eleconomista",
+      "count": 21,
+      "earliest": "2026-11-17T02:12:00.000Z",
+      "latest": "2026-11-18T20:57:00.000Z"
+    },
+    {
+      "source": "infobae",
+      "count": 8,
+      "earliest": "2026-11-18T20:09:36.000Z",
+      "latest": "2026-11-18T21:34:22.000Z"
+    },
+    {
+      "source": "iprofesional",
+      "count": 17,
+      "earliest": "2026-11-17T21:23:00.000Z",
+      "latest": "2026-11-18T20:09:00.000Z"
+    },
+    {
+      "source": "pagina12",
+      "count": 29,
+      "earliest": "2026-11-14T03:01:00.000Z",
+      "latest": "2026-11-18T21:30:47.000Z"
+    }
+  ],
+  "states": [
+    {
+      "source": "bloomberg",
+      "status": "ok",
+      "lastSuccessAt": "2026-11-18T21:34:28.077Z"
+    },
+    {
+      "source": "eleconomista",
+      "status": "ok",
+      "lastSuccessAt": "2026-11-18T21:34:28.077Z"
+    },
+    {
+      "source": "infobae",
+      "status": "ok",
+      "lastSuccessAt": "2026-11-18T21:47:02.241Z"
+    },
+    {
+      "source": "iprofesional",
+      "status": "ok",
+      "lastSuccessAt": "2026-11-18T21:47:02.241Z"
+    },
+    {
+      "source": "pagina12",
+      "status": "ok",
+      "lastSuccessAt": "2026-11-18T21:47:02.241Z"
+    }
+  ],
+  "weekly": [
+    {
+      "period": "2026-11-16",
+      "fromAt": "2026-11-09T13:00:00.000Z",
+      "toAt": "2026-11-16T13:00:00.000Z",
+      "count": 8
+    }
+  ],
+  "descriptionsStored": false,
+  "imageUrlsBySource": {
+    "pagina12": 25,
+    "iprofesional": 16,
+    "infobae": 6
+  },
+  "imageFilesStored": false,
+  "duplicateUrls": false
+}

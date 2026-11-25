@@ -1,0 +1,23 @@
+// Catálogo de descubrimiento. No es un ranking por capitalización ni una recomendación.
+export const companies = [
+  { symbol: "AAPL", name: "Apple", sector: "Tecnología" },
+  { symbol: "MSFT", name: "Microsoft", sector: "Tecnología" },
+  { symbol: "NVDA", name: "NVIDIA", sector: "Semiconductores" },
+  { symbol: "GOOGL", name: "Alphabet", sector: "Tecnología" },
+  { symbol: "AMZN", name: "Amazon", sector: "Comercio" },
+  { symbol: "META", name: "Meta", sector: "Tecnología" },
+  { symbol: "BRK.B", name: "Berkshire Hathaway", sector: "Servicios financieros" },
+  { symbol: "TSM", name: "TSMC", sector: "Semiconductores" },
+  { symbol: "AVGO", name: "Broadcom", sector: "Semiconductores" },
+  { symbol: "TSLA", name: "Tesla", sector: "Automotriz" },
+  { symbol: "JPM", name: "JPMorgan Chase", sector: "Servicios financieros" },
+  { symbol: "V", name: "Visa", sector: "Pagos" },
+  { symbol: "MA", name: "Mastercard", sector: "Pagos" },
+  { symbol: "WMT", name: "Walmart", sector: "Comercio" },
+  { symbol: "XOM", name: "Exxon Mobil", sector: "Energía" },
+  { symbol: "JNJ", name: "Johnson & Johnson", sector: "Salud" },
+  { symbol: "PG", name: "Procter & Gamble", sector: "Consumo" },
+  { symbol: "KO", name: "Coca-Cola", sector: "Consumo" },
+  { symbol: "MELI", name: "Mercado Libre", sector: "Comercio" },
+  { symbol: "NU", name: "Nu Holdings", sector: "Servicios financieros" },
+];

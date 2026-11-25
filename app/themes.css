@@ -1,0 +1,125 @@
+:root {
+  color-scheme: light;
+  --background: #fafafb;
+  --surface: #fff;
+  --surface-neutral: #f2f2f3;
+  --surface-strong: #e9ebee;
+  --foreground: #17191c;
+  --primary: #17191c;
+  --primary-foreground: #fff;
+  --muted: #f2f2f3;
+  --muted-foreground: #626773;
+  --border: #dedfe3;
+  --control-hover: #d4d8dd;
+  --control-hover-border: #a2a9b1;
+  --accent-soft: #fbe1d1;
+  --accent-ink: #5d2a1a;
+  --accent-stroke: #dec2af;
+  --copper: #cc9166;
+  --ash: #f2f2f3;
+  --fog: #fafafb;
+  --ivory: #f0ece8;
+  --brass: #784a31;
+  --panel-shadow: 0 16px 40px -30px #17191c38;
+}
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --background: #101215;
+  --surface: #17191c;
+  --surface-neutral: #202328;
+  --surface-strong: #2b3037;
+  --foreground: #f2f2f3;
+  --primary: #f2f2f3;
+  --primary-foreground: #17191c;
+  --muted: #202328;
+  --muted-foreground: #a3a6af;
+  --border: #363b43;
+  --control-hover: #353b44;
+  --control-hover-border: #737d8a;
+  --accent-soft: #34271f;
+  --accent-ink: #f3c9aa;
+  --accent-stroke: #6f4e37;
+  --copper: #cc9166;
+  --income-surface: #173729;
+  --income-ink: #a0e2b9;
+  --income-border: #2c6046;
+  --expense-surface: #422a20;
+  --expense-ink: #ffc2a1;
+  --expense-border: #77513a;
+  --ash: #202328;
+  --fog: #101215;
+  --ivory: #252321;
+  --brass: #e0ad86;
+  --panel-shadow: 0 16px 40px -26px #0009;
+}
+.theme-picker {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  color: var(--foreground);
+  font-size: 12px;
+}
+.theme-picker select {
+  min-height: 40px;
+  max-width: 125px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 7px 9px;
+  background: var(--surface);
+  color: var(--foreground);
+}
+.site-header-actions,
+.topbar-controls {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+.dashboard-topbar {
+  height: auto;
+  min-height: 76px;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding-block: 16px;
+}
+.topbar-controls {
+  flex-wrap: wrap;
+  gap: 16px;
+}
+.auth-main {
+  position: relative;
+}
+.auth-theme {
+  position: absolute;
+  right: 24px;
+  top: 20px;
+}
+:root[data-theme="dark"] .brand-artwork-light {
+  display: none;
+}
+:root[data-theme="dark"] .brand-artwork-dark {
+  display: block;
+}
+@media (max-width: 640px) {
+  .site-header {
+    height: auto;
+    min-height: 76px;
+    flex-wrap: wrap;
+    padding-block: 18px;
+    gap: 16px;
+  }
+  .site-header-actions {
+    width: 100%;
+    justify-content: space-between;
+    gap: 12px;
+  }
+  .dashboard-topbar {
+    padding-inline: 18px;
+  }
+  .topbar-controls {
+    width: 100%;
+    justify-content: space-between;
+  }
+  .auth-main {
+    padding-top: 90px;
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "verifiedAt": "2026-11-19",
+  "compositionDate": "2026-11-18",
+  "instruments": { "sp100": 101, "ndx": 101, "unique": 167, "shared": 35 },
+  "crosscheck": {
+    "sp100": {
+      "index": "https://www.spglobal.com/spdji/en/indices/equity/sp-100/",
+      "list": "https://en.wikipedia.org/wiki/S%26P_100",
+      "fund": "https://www.ishares.com/us/products/239723/ishares-s-p-100-etf/latest-holdings.csv",
+      "fundDataAsOf": "2026-11-18",
+      "missingFromFund": [],
+      "extraFundEquities": []
+    },
+    "ndx": {
+      "index": "https://indexes.nasdaq.com/Index/Overview/NDX",
+      "list": "https://en.wikipedia.org/wiki/List_of_NASDAQ-100_companies",
+      "fund": "https://dng-api.invesco.com/cache/v1/accounts/en_US/shareclasses/46090E103/holdings/fund?productType=ETF&idType=cusip",
+      "fundDataAsOf": "2026-11-18",
+      "missingFromFund": [],
+      "extraFundEquities": [],
+      "changeNotice": "https://ir.nasdaq.com/node/111076/pdf"
+    }
+  },
+  "method": "Cruce de conjuntos de símbolos, excluyendo efectivo y derivados del fondo replicador. No se guardan precios ni pesos. Las posiciones de fondos son un contraste, no archivos oficiales de constituyentes.",
+  "excludedStaleSource": "La página educativa de Nasdaq mantenía KHC/WBD y no MRNA; no se usó como composición vigente.",
+  "quotes": "Sin API para la tabla personalizada. Gráficos mediante widget oficial de TradingView, sin extraer cotizaciones.",
+  "refresh": "Revisión manual fechada. No se actualiza automáticamente el catálogo."
+}

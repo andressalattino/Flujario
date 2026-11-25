@@ -1,0 +1,761 @@
+{
+  "version": "6",
+  "dialect": "sqlite",
+  "id": "8e8f2289-5f70-4b8c-925c-12385075598b",
+  "prevId": "e1a4702e-b37f-4b7b-8744-0e2ade6961f6",
+  "tables": {
+    "accounts": {
+      "name": "accounts",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "user_id": {
+          "name": "user_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "name": {
+          "name": "name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "currency": {
+          "name": "currency",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "opening_cents": {
+          "name": "opening_cents",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": 0
+        }
+      },
+      "indexes": {
+        "accounts_user_currency": {
+          "name": "accounts_user_currency",
+          "columns": [
+            "user_id",
+            "currency"
+          ],
+          "isUnique": true
+        },
+        "accounts_owner_currency": {
+          "name": "accounts_owner_currency",
+          "columns": [
+            "id",
+            "user_id",
+            "currency"
+          ],
+          "isUnique": true
+        }
+      },
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {
+        "account_currency": {
+          "name": "account_currency",
+          "value": "\"accounts\".\"currency\" IN ('ARS','USD')"
+        },
+        "opening_integer": {
+          "name": "opening_integer",
+          "value": "typeof(\"accounts\".\"opening_cents\") = 'integer' AND abs(\"accounts\".\"opening_cents\") <= 1000000000000"
+        }
+      }
+    },
+    "dismissed_payment_notices": {
+      "name": "dismissed_payment_notices",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "user_id": {
+          "name": "user_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "occurrence_id": {
+          "name": "occurrence_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "currency": {
+          "name": "currency",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "dismissed_at": {
+          "name": "dismissed_at",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        }
+      },
+      "indexes": {
+        "dismissed_notice_user_occurrence": {
+          "name": "dismissed_notice_user_occurrence",
+          "columns": [
+            "user_id",
+            "occurrence_id"
+          ],
+          "isUnique": true
+        }
+      },
+      "foreignKeys": {
+        "dismissed_payment_notices_occurrence_id_user_id_currency_payment_occurrences_id_user_id_currency_fk": {
+          "name": "dismissed_payment_notices_occurrence_id_user_id_currency_payment_occurrences_id_user_id_currency_fk",
+          "tableFrom": "dismissed_payment_notices",
+          "tableTo": "payment_occurrences",
+          "columnsFrom": [
+            "occurrence_id",
+            "user_id",
+            "currency"
+          ],
+          "columnsTo": [
+            "id",
+            "user_id",
+            "currency"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {}
+    },
+    "news_editions": {
+      "name": "news_editions",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "cadence": {
+          "name": "cadence",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "period": {
+          "name": "period",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "refreshed_at": {
+          "name": "refreshed_at",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "articles_json": {
+          "name": "articles_json",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        }
+      },
+      "indexes": {
+        "edition_cadence_period": {
+          "name": "edition_cadence_period",
+          "columns": [
+            "cadence",
+            "period"
+          ],
+          "isUnique": true
+        }
+      },
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {}
+    },
+    "entries": {
+      "name": "entries",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "user_id": {
+          "name": "user_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "kind": {
+          "name": "kind",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "account_id": {
+          "name": "account_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "target_account_id": {
+          "name": "target_account_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "amount_cents": {
+          "name": "amount_cents",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "currency": {
+          "name": "currency",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "description": {
+          "name": "description",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "category": {
+          "name": "category",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "date": {
+          "name": "date",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "occurrence_id": {
+          "name": "occurrence_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "request_key": {
+          "name": "request_key",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "payload_hash": {
+          "name": "payload_hash",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        }
+      },
+      "indexes": {
+        "entries_request": {
+          "name": "entries_request",
+          "columns": [
+            "user_id",
+            "request_key"
+          ],
+          "isUnique": true
+        },
+        "entries_occurrence": {
+          "name": "entries_occurrence",
+          "columns": [
+            "occurrence_id"
+          ],
+          "isUnique": true
+        },
+        "entries_user_date": {
+          "name": "entries_user_date",
+          "columns": [
+            "user_id",
+            "date"
+          ],
+          "isUnique": false
+        }
+      },
+      "foreignKeys": {
+        "entries_account_id_user_id_currency_accounts_id_user_id_currency_fk": {
+          "name": "entries_account_id_user_id_currency_accounts_id_user_id_currency_fk",
+          "tableFrom": "entries",
+          "tableTo": "accounts",
+          "columnsFrom": [
+            "account_id",
+            "user_id",
+            "currency"
+          ],
+          "columnsTo": [
+            "id",
+            "user_id",
+            "currency"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "entries_target_account_id_user_id_currency_accounts_id_user_id_currency_fk": {
+          "name": "entries_target_account_id_user_id_currency_accounts_id_user_id_currency_fk",
+          "tableFrom": "entries",
+          "tableTo": "accounts",
+          "columnsFrom": [
+            "target_account_id",
+            "user_id",
+            "currency"
+          ],
+          "columnsTo": [
+            "id",
+            "user_id",
+            "currency"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "entries_occurrence_id_user_id_currency_payment_occurrences_id_user_id_currency_fk": {
+          "name": "entries_occurrence_id_user_id_currency_payment_occurrences_id_user_id_currency_fk",
+          "tableFrom": "entries",
+          "tableTo": "payment_occurrences",
+          "columnsFrom": [
+            "occurrence_id",
+            "user_id",
+            "currency"
+          ],
+          "columnsTo": [
+            "id",
+            "user_id",
+            "currency"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {
+        "entry_amount": {
+          "name": "entry_amount",
+          "value": "typeof(\"entries\".\"amount_cents\") = 'integer' AND \"entries\".\"amount_cents\" > 0 AND \"entries\".\"amount_cents\" <= 1000000000000"
+        },
+        "entry_kind": {
+          "name": "entry_kind",
+          "value": "\"entries\".\"kind\" IN ('income','expense','transfer')"
+        },
+        "transfer_accounts": {
+          "name": "transfer_accounts",
+          "value": "(\"entries\".\"kind\" = 'transfer' AND \"entries\".\"target_account_id\" IS NOT NULL AND \"entries\".\"target_account_id\" <> \"entries\".\"account_id\") OR (\"entries\".\"kind\" <> 'transfer' AND \"entries\".\"target_account_id\" IS NULL)"
+        },
+        "paid_is_expense": {
+          "name": "paid_is_expense",
+          "value": "\"entries\".\"occurrence_id\" IS NULL OR \"entries\".\"kind\" = 'expense'"
+        }
+      }
+    },
+    "favorites": {
+      "name": "favorites",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "user_id": {
+          "name": "user_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "symbol": {
+          "name": "symbol",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        }
+      },
+      "indexes": {
+        "favorite_user_symbol": {
+          "name": "favorite_user_symbol",
+          "columns": [
+            "user_id",
+            "symbol"
+          ],
+          "isUnique": true
+        }
+      },
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {}
+    },
+    "payment_occurrences": {
+      "name": "payment_occurrences",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "rule_id": {
+          "name": "rule_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "user_id": {
+          "name": "user_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "due_date": {
+          "name": "due_date",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "amount_cents": {
+          "name": "amount_cents",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "amount_source": {
+          "name": "amount_source",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": "'inherited'"
+        },
+        "currency": {
+          "name": "currency",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        }
+      },
+      "indexes": {
+        "occurrence_rule_date": {
+          "name": "occurrence_rule_date",
+          "columns": [
+            "rule_id",
+            "due_date"
+          ],
+          "isUnique": true
+        },
+        "occurrence_owner": {
+          "name": "occurrence_owner",
+          "columns": [
+            "id",
+            "user_id",
+            "currency"
+          ],
+          "isUnique": true
+        },
+        "occurrence_user_due": {
+          "name": "occurrence_user_due",
+          "columns": [
+            "user_id",
+            "due_date"
+          ],
+          "isUnique": false
+        }
+      },
+      "foreignKeys": {
+        "payment_occurrences_rule_id_user_id_currency_payment_rules_id_user_id_currency_fk": {
+          "name": "payment_occurrences_rule_id_user_id_currency_payment_rules_id_user_id_currency_fk",
+          "tableFrom": "payment_occurrences",
+          "tableTo": "payment_rules",
+          "columnsFrom": [
+            "rule_id",
+            "user_id",
+            "currency"
+          ],
+          "columnsTo": [
+            "id",
+            "user_id",
+            "currency"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {
+        "occurrence_amount": {
+          "name": "occurrence_amount",
+          "value": "\"payment_occurrences\".\"amount_cents\" IS NULL OR (typeof(\"payment_occurrences\".\"amount_cents\") = 'integer' AND \"payment_occurrences\".\"amount_cents\" > 0 AND \"payment_occurrences\".\"amount_cents\" <= 1000000000000)"
+        },
+        "occurrence_amount_source": {
+          "name": "occurrence_amount_source",
+          "value": "\"payment_occurrences\".\"amount_source\" IN ('manual','inherited')"
+        }
+      }
+    },
+    "payment_mutations": {
+      "name": "payment_mutations",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "user_id": {
+          "name": "user_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "occurrence_id": {
+          "name": "occurrence_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "currency": {
+          "name": "currency",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "request_key": {
+          "name": "request_key",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "payload_hash": {
+          "name": "payload_hash",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        }
+      },
+      "indexes": {
+        "payment_mutation_request": {
+          "name": "payment_mutation_request",
+          "columns": [
+            "user_id",
+            "request_key"
+          ],
+          "isUnique": true
+        }
+      },
+      "foreignKeys": {
+        "payment_mutations_occurrence_id_user_id_currency_payment_occurrences_id_user_id_currency_fk": {
+          "name": "payment_mutations_occurrence_id_user_id_currency_payment_occurrences_id_user_id_currency_fk",
+          "tableFrom": "payment_mutations",
+          "tableTo": "payment_occurrences",
+          "columnsFrom": [
+            "occurrence_id",
+            "user_id",
+            "currency"
+          ],
+          "columnsTo": [
+            "id",
+            "user_id",
+            "currency"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {}
+    },
+    "payment_rules": {
+      "name": "payment_rules",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "user_id": {
+          "name": "user_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "title": {
+          "name": "title",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "amount_cents": {
+          "name": "amount_cents",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "currency": {
+          "name": "currency",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "anchor_date": {
+          "name": "anchor_date",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "frequency": {
+          "name": "frequency",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "request_key": {
+          "name": "request_key",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "payload_hash": {
+          "name": "payload_hash",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        }
+      },
+      "indexes": {
+        "rules_request": {
+          "name": "rules_request",
+          "columns": [
+            "user_id",
+            "request_key"
+          ],
+          "isUnique": true
+        },
+        "rules_owner": {
+          "name": "rules_owner",
+          "columns": [
+            "id",
+            "user_id",
+            "currency"
+          ],
+          "isUnique": true
+        }
+      },
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {
+        "rule_amount": {
+          "name": "rule_amount",
+          "value": "\"payment_rules\".\"amount_cents\" IS NULL OR (typeof(\"payment_rules\".\"amount_cents\") = 'integer' AND \"payment_rules\".\"amount_cents\" > 0 AND \"payment_rules\".\"amount_cents\" <= 1000000000000)"
+        },
+        "rule_currency": {
+          "name": "rule_currency",
+          "value": "\"payment_rules\".\"currency\" IN ('ARS','USD')"
+        },
+        "rule_frequency": {
+          "name": "rule_frequency",
+          "value": "\"payment_rules\".\"frequency\" IN ('once','monthly','quarterly','yearly')"
+        }
+      }
+    }
+  },
+  "views": {},
+  "enums": {},
+  "_meta": {
+    "schemas": {},
+    "tables": {},
+    "columns": {}
+  },
+  "internal": {
+    "indexes": {}
+  }
+}

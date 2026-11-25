@@ -1,0 +1,56 @@
+{
+  "purpose": "Metadatos de imágenes de noticias económicas; sin descargar fotos ni artículos",
+  "results": [
+    {
+      "source": "iprofesional",
+      "checkedAt": "2026-11-18T21:45:13.046Z",
+      "http": 200,
+      "accepted": 16,
+      "withImage": 16,
+      "imageHosts": {
+        "resizer.iproimg.com": 16
+      },
+      "error": null
+    },
+    {
+      "source": "eleconomista",
+      "checkedAt": "2026-11-18T21:45:13.351Z",
+      "http": 200,
+      "accepted": 20,
+      "withImage": 0,
+      "imageHosts": {},
+      "error": null
+    },
+    {
+      "source": "pagina12",
+      "checkedAt": "2026-11-18T21:45:13.548Z",
+      "http": 200,
+      "accepted": 25,
+      "withImage": 25,
+      "imageHosts": {
+        "grupooctubre-pagina12-prod.web.arc-cdn.net": 25
+      },
+      "error": null
+    },
+    {
+      "source": "infobae",
+      "checkedAt": "2026-11-18T21:45:13.875Z",
+      "http": 200,
+      "accepted": 6,
+      "withImage": 6,
+      "imageHosts": {
+        "www.infobae.com": 6
+      },
+      "error": null
+    },
+    {
+      "source": "bloomberg",
+      "checkedAt": "2026-11-18T21:45:14.286Z",
+      "http": 200,
+      "accepted": 20,
+      "withImage": 0,
+      "imageHosts": {},
+      "error": null
+    }
+  ]
+}

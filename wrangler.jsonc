@@ -1,0 +1,29 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "flujario",
+  "main": "workers/app.ts",
+  "compatibility_date": "2026-11-13",
+  "compatibility_flags": ["nodejs_compat"],
+  "assets": { "directory": "build/client" },
+  "ai": { "binding": "AI", "remote": true },
+  "vars": {
+    "AI_ENABLED": "true",
+    "AI_ALLOW_LOCAL": "false",
+    "AI_MODEL": "@cf/ibm-granite/granite-4.0-h-micro",
+    "AI_DAILY_QUESTION_LIMIT": "5",
+    "AI_GLOBAL_DAILY_NEURON_BUDGET": "8000",
+    "AI_MAX_OUTPUT_TOKENS": "400",
+  },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "flujario-db",
+      "database_id": "00000000-0000-0000-0000-000000000000",
+      "migrations_dir": "drizzle",
+    },
+  ],
+  "triggers": {
+    "crons": ["0 13 * * *", "0 13 * * MON", "0 */3 * * *", "*/30 * * * *", "0 14 * * *"],
+  },
+  "observability": { "enabled": true },
+}

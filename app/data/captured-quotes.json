@@ -1,0 +1,74 @@
+{
+  "capturedAt": "2026-11-17T16:22:11.154Z",
+  "asOf": "2026-11-17",
+  "quotes": [
+    {
+      "id": "48250bc32b35f3c28837916fbf541411688ecc37b0e1ad054cc49b76d7a32270",
+      "series": "brl",
+      "currency": "BRL",
+      "buyRate": "267.9167",
+      "sellRate": "268.0537",
+      "sourceAsOf": "2026-11-17T12:57:00.000Z",
+      "fetchedAt": "2026-11-17T16:22:11.121Z"
+    },
+    {
+      "id": "abe46f89f5f1b5cb9a689122181d1049dae3fbbc231f4d601c7b471d4f52b958",
+      "series": "clp",
+      "currency": "CLP",
+      "buyRate": "1.5595",
+      "sellRate": "1.5595",
+      "sourceAsOf": "2026-11-17T12:58:00.000Z",
+      "fetchedAt": "2026-11-17T16:22:11.121Z"
+    },
+    {
+      "id": "27a5e5bd92f29f985a0fac351d7a6d5ef1395f49fbc5d008a5d06258b4e55bce",
+      "series": "eur",
+      "currency": "EUR",
+      "buyRate": "1694.9664",
+      "sellRate": "1708.7367",
+      "sourceAsOf": "2026-11-17T12:57:00.000Z",
+      "fetchedAt": "2026-11-17T16:22:11.121Z"
+    },
+    {
+      "id": "6624ca1615ecd36729208f042cd47e80f0c50cc6672b650b45cecfa96a816f93",
+      "series": "usd-blue",
+      "currency": "USD",
+      "buyRate": "1585",
+      "sellRate": "1605",
+      "sourceAsOf": "2026-11-17T15:57:00.000Z",
+      "fetchedAt": "2026-11-17T16:22:11.116Z"
+    },
+    {
+      "id": "7235c0ddb3e170fe90865d8c9ac8c101fafc3f86a04e55a7099261069a2307ea",
+      "series": "usd-mep",
+      "currency": "USD",
+      "buyRate": "1590.3",
+      "sellRate": "1593",
+      "sourceAsOf": "2026-11-17T15:57:00.000Z",
+      "fetchedAt": "2026-11-17T16:22:11.116Z"
+    },
+    {
+      "id": "249e3f3807811bc5200579087aad8b3cd2542936a789d4c6686105a88236598d",
+      "series": "usd-oficial",
+      "currency": "USD",
+      "buyRate": "1525",
+      "sellRate": "1575",
+      "sourceAsOf": "2026-11-17T13:00:00.000Z",
+      "fetchedAt": "2026-11-17T16:22:11.116Z"
+    },
+    {
+      "id": "a495db3a02df8a1c33ec8dde89dbd40b5aa56f7425e44301b8293b09a8bfd1d9",
+      "series": "uyu",
+      "currency": "UYU",
+      "buyRate": "38.1993",
+      "sellRate": "38.1993",
+      "sourceAsOf": "2026-11-17T12:57:00.000Z",
+      "fetchedAt": "2026-11-17T16:22:11.121Z"
+    }
+  ],
+  "quoteState": {
+    "status": "ok",
+    "lastAttemptAt": "2026-11-17T16:22:10.846Z",
+    "nextAttemptAt": "2026-11-17T19:22:10.846Z"
+  }
+}

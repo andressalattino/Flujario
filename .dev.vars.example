@@ -1,0 +1,5 @@
+# Privadas: copiar a .dev.vars. Nunca usar VITE_ para una clave secreta.
+CLERK_SECRET_KEY=
+# Opcional: endpoint editorial propio que cumpla docs/PROVEEDORES.md.
+NEWS_FEED_URL=
+NEWS_FEED_TOKEN=

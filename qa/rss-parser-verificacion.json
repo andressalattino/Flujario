@@ -1,0 +1,45 @@
+{
+  "purpose": "Validación técnica sin publicación ni guardado de artículos",
+  "results": [
+    {
+      "source": "iprofesional",
+      "checkedAt": "2026-11-18T19:50:54.797Z",
+      "http": 200,
+      "accepted": 15,
+      "latestPublishedAt": "2026-11-18T14:30:00.000Z",
+      "error": null
+    },
+    {
+      "source": "eleconomista",
+      "checkedAt": "2026-11-18T19:50:55.099Z",
+      "http": 200,
+      "accepted": 20,
+      "latestPublishedAt": "2026-11-18T18:03:00.000Z",
+      "error": null
+    },
+    {
+      "source": "pagina12",
+      "checkedAt": "2026-11-18T19:50:55.354Z",
+      "http": 200,
+      "accepted": 25,
+      "latestPublishedAt": "2026-11-18T15:08:28.000Z",
+      "error": null
+    },
+    {
+      "source": "infobae",
+      "checkedAt": "2026-11-18T19:50:55.650Z",
+      "http": 200,
+      "accepted": 1,
+      "latestPublishedAt": "2026-11-18T19:19:20.000Z",
+      "error": null
+    },
+    {
+      "source": "bloomberg",
+      "checkedAt": "2026-11-18T19:50:56.069Z",
+      "http": 200,
+      "accepted": 20,
+      "latestPublishedAt": "2026-11-18T19:00:01.000Z",
+      "error": null
+    }
+  ]
+}

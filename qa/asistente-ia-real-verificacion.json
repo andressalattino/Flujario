@@ -1,0 +1,25 @@
+{
+  "checkedAt": "2026-11-24T21:02:14.570Z",
+  "model": "@cf/ibm-granite/granite-4.0-h-micro",
+  "remoteCalls": 1,
+  "validInterpretation": {
+    "operation": "summary",
+    "period": "custom",
+    "grouping": "month",
+    "metric": "net",
+    "from": "2026-10-01",
+    "to": "2026-10-31",
+    "term": null
+  },
+  "currency": "ARS",
+  "fictitiousAmountsMinor": {
+    "income": 900000,
+    "expense": 425000
+  },
+  "reservedNeuronMicros": 19697568,
+  "observedNeuronMicros": 1409321,
+  "usageSource": "provider",
+  "replayWithoutSecondCall": true,
+  "fictitiousEntriesUnchanged": true,
+  "persistentPersonalDatabaseUsed": false
+}

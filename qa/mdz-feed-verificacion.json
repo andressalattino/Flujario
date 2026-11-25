@@ -1,0 +1,20 @@
+{
+  "checkedOn": "2026-11-18",
+  "source": "mdz",
+  "sourceName": "MDZ Online",
+  "category": "Economía",
+  "feedUrl": "https://www.mdzol.com/files/rss/mediamzaeconomia.xml",
+  "sectionUrl": "https://www.mdzol.com/economia",
+  "httpStatus": 404,
+  "responseCharacters": 0,
+  "contentType": null,
+  "redirect": null,
+  "xmlValidation": "not_available_empty_http_error",
+  "freshness": "not_verifiable",
+  "verifiedAlternativeFeed": null,
+  "recommendedStatus": "pending",
+  "termsUrl": "https://www.mdzol.com/p/terminos-y-condiciones",
+  "publicReusePermission": "not_confirmed_restrictive_terms",
+  "htmlScrapingUsed": false,
+  "restrictionsBypassed": false
+}

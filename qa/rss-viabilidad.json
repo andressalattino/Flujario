@@ -1,0 +1,291 @@
+{
+  "freshnessWindowDays": 7,
+  "results": [
+    {
+      "source": "iprofesional",
+      "requestedUrl": "https://www.iprofesional.com/rss/economia",
+      "checkedAt": "2026-11-18T18:59:15.8067656+00:00",
+      "httpStatus": 200,
+      "finalUrl": "https://www.iprofesional.com/rss/economia",
+      "redirects": [],
+      "contentType": "application/xml",
+      "xmlValid": true,
+      "format": "rss",
+      "itemCount": 22,
+      "missingDates": 0,
+      "invalidDates": 0,
+      "futureDates": 0,
+      "itemsInLast7Days": 22,
+      "latestPublishedAt": "2026-11-18T18:40:00.0000000+00:00",
+      "categorySamples": ["Propia", "Otros", "Cable", "Evergreen con vencimiento", "Creado por IA"],
+      "itemElementNames": [
+        "title",
+        "description",
+        "link",
+        "pubDate",
+        "guid",
+        "enclosure",
+        "category"
+      ],
+      "articleSectionPaths": [
+        {
+          "count": 8,
+          "path": "economia"
+        },
+        {
+          "count": 6,
+          "path": "finanzas"
+        },
+        {
+          "count": 4,
+          "path": "actualidad"
+        },
+        {
+          "count": 2,
+          "path": "politica"
+        },
+        {
+          "count": 1,
+          "path": "energia"
+        },
+        {
+          "count": 1,
+          "path": "negocios"
+        }
+      ],
+      "economyPathMatches": 0,
+      "itemsWithImageMetadata": 22,
+      "error": null
+    },
+    {
+      "source": "eleconomista",
+      "requestedUrl": "https://eleconomista.com.ar/economia/feed/",
+      "checkedAt": "2026-11-18T18:59:16.1529080+00:00",
+      "httpStatus": 200,
+      "finalUrl": "https://eleconomista.com.ar/economia/feed/",
+      "redirects": [],
+      "contentType": "text/xml; charset=UTF-8",
+      "xmlValid": true,
+      "format": "rss",
+      "itemCount": 20,
+      "missingDates": 0,
+      "invalidDates": 0,
+      "futureDates": 0,
+      "itemsInLast7Days": 20,
+      "latestPublishedAt": "2026-11-18T18:03:00.0000000+00:00",
+      "categorySamples": ["Economía"],
+      "itemElementNames": ["title", "link", "category", "description", "pubDate"],
+      "articleSectionPaths": [
+        {
+          "count": 20,
+          "path": "economia"
+        }
+      ],
+      "economyPathMatches": 0,
+      "itemsWithImageMetadata": 0,
+      "error": null
+    },
+    {
+      "source": "pagina12",
+      "requestedUrl": "https://www.pagina12.com.ar/arc/outboundfeeds/rss/secciones/economia/notas/",
+      "checkedAt": "2026-11-18T18:59:16.3484339+00:00",
+      "httpStatus": 200,
+      "finalUrl": "https://www.pagina12.com.ar/arc/outboundfeeds/rss/secciones/economia/notas/",
+      "redirects": [],
+      "contentType": "application/xml; charset=utf-8",
+      "xmlValid": true,
+      "format": "rss",
+      "itemCount": 25,
+      "missingDates": 0,
+      "invalidDates": 0,
+      "futureDates": 0,
+      "itemsInLast7Days": 25,
+      "latestPublishedAt": "2026-11-18T15:08:28.0000000+00:00",
+      "categorySamples": [],
+      "itemElementNames": [
+        "title",
+        "link",
+        "guid",
+        "dc:creator",
+        "description",
+        "pubDate",
+        "media:content"
+      ],
+      "articleSectionPaths": [
+        {
+          "count": 25,
+          "path": "2026"
+        }
+      ],
+      "economyPathMatches": 0,
+      "itemsWithImageMetadata": 25,
+      "error": null
+    },
+    {
+      "source": "infobae",
+      "requestedUrl": "https://www.infobae.com/arc/outboundfeeds/rss/",
+      "checkedAt": "2026-11-18T18:59:16.6633466+00:00",
+      "httpStatus": 200,
+      "finalUrl": "https://www.infobae.com/arc/outboundfeeds/rss/",
+      "redirects": [],
+      "contentType": "application/xml; charset=utf-8",
+      "xmlValid": true,
+      "format": "rss",
+      "itemCount": 100,
+      "missingDates": 0,
+      "invalidDates": 0,
+      "futureDates": 0,
+      "itemsInLast7Days": 100,
+      "latestPublishedAt": "2026-11-18T18:57:13.0000000+00:00",
+      "categorySamples": [],
+      "itemElementNames": [
+        "title",
+        "link",
+        "guid",
+        "description",
+        "pubDate",
+        "content:encoded",
+        "media:content",
+        "dc:creator"
+      ],
+      "articleSectionPaths": [
+        {
+          "count": 19,
+          "path": "colombia"
+        },
+        {
+          "count": 14,
+          "path": "espana"
+        },
+        {
+          "count": 13,
+          "path": "mexico"
+        },
+        {
+          "count": 12,
+          "path": "peru"
+        },
+        {
+          "count": 11,
+          "path": "america"
+        },
+        {
+          "count": 4,
+          "path": "politica"
+        },
+        {
+          "count": 4,
+          "path": "sociedad"
+        },
+        {
+          "count": 4,
+          "path": "entretenimiento"
+        },
+        {
+          "count": 3,
+          "path": "guatemala"
+        },
+        {
+          "count": 3,
+          "path": "costa-rica"
+        },
+        {
+          "count": 2,
+          "path": "estados-unidos"
+        },
+        {
+          "count": 2,
+          "path": "panama"
+        },
+        {
+          "count": 2,
+          "path": "salud"
+        },
+        {
+          "count": 2,
+          "path": "tecno"
+        },
+        {
+          "count": 1,
+          "path": "economia"
+        },
+        {
+          "count": 1,
+          "path": "malditos-nerds"
+        },
+        {
+          "count": 1,
+          "path": "teleshow"
+        },
+        {
+          "count": 1,
+          "path": "republica-dominicana"
+        },
+        {
+          "count": 1,
+          "path": "venezuela"
+        }
+      ],
+      "economyPathMatches": 1,
+      "itemsWithImageMetadata": 90,
+      "error": null
+    },
+    {
+      "source": "bloomberg",
+      "requestedUrl": "https://www.bloomberg.com/feeds/economics/news.rss",
+      "checkedAt": "2026-11-18T18:59:17.0742507+00:00",
+      "httpStatus": 200,
+      "finalUrl": "https://www.bloomberg.com/feeds/economics/news.rss",
+      "redirects": [],
+      "contentType": "text/xml; charset=utf-8",
+      "xmlValid": true,
+      "format": "rss",
+      "itemCount": 20,
+      "missingDates": 0,
+      "invalidDates": 0,
+      "futureDates": 0,
+      "itemsInLast7Days": 20,
+      "latestPublishedAt": "2026-11-18T18:16:35.0000000+00:00",
+      "categorySamples": [],
+      "itemElementNames": ["title", "description", "link", "guid", "dc:creator", "pubDate"],
+      "articleSectionPaths": [
+        {
+          "count": 20,
+          "path": "news"
+        }
+      ],
+      "economyPathMatches": 0,
+      "itemsWithImageMetadata": 0,
+      "error": null
+    },
+    {
+      "source": "bloomberg-alternative",
+      "requestedUrl": "https://feeds.bloomberg.com/news.rss",
+      "checkedAt": "2026-11-18T18:59:17.6717645+00:00",
+      "httpStatus": 200,
+      "finalUrl": "https://www.bloomberg.com/feeds/news.rss",
+      "redirects": ["https://www.bloomberg.com/feeds/news.rss"],
+      "contentType": "text/xml; charset=utf-8",
+      "xmlValid": true,
+      "format": "rss",
+      "itemCount": 20,
+      "missingDates": 0,
+      "invalidDates": 0,
+      "futureDates": 0,
+      "itemsInLast7Days": 20,
+      "latestPublishedAt": "2026-11-18T18:45:41.0000000+00:00",
+      "categorySamples": [],
+      "itemElementNames": ["title", "description", "link", "guid", "dc:creator", "pubDate"],
+      "articleSectionPaths": [
+        {
+          "count": 20,
+          "path": "news"
+        }
+      ],
+      "economyPathMatches": 0,
+      "itemsWithImageMetadata": 0,
+      "error": null
+    }
+  ],
+  "purpose": "Technical RSS feasibility; no republication permission is implied."
+}

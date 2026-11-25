@@ -1,0 +1,2168 @@
+{
+  "companies": [
+    {
+      "id": "AAPL",
+      "symbol": "AAPL",
+      "name": "Apple Inc.",
+      "exchange": "NASDAQ",
+      "tradingviewSymbol": "NASDAQ:AAPL",
+      "verifiedAt": "2026-11-19"
+    },
+    {
+      "id": "ABBV",
+      "symbol": "ABBV",
+      "name": "AbbVie",
+      "exchange": "NYSE",
+      "tradingviewSymbol": "NYSE:ABBV",
+      "verifiedAt": "2026-11-19"
+    },
+    {
+      "id": "ABNB",
+      "symbol": "ABNB",
+      "name": "Airbnb Inc",
+      "exchange": "NASDAQ",
+      "tradingviewSymbol": "NASDAQ:ABNB",
+      "verifiedAt": "2026-11-19"
+    },
+    {
+      "id": "ABT",
+      "symbol": "ABT",
+      "name": "Abbott Laboratories",
+      "exchange": "NYSE",
+      "tradingviewSymbol": "NYSE:ABT",
+      "verifiedAt": "2026-11-19"
+    },
+    {
+      "id": "ACN",
+      "symbol": "ACN",
+      "name": "Accenture",
+      "exchange": "NYSE",
+      "tradingviewSymbol": "NYSE:ACN",
+      "verifiedAt": "2026-11-19"
+    },
+    {
+      "id": "ADBE",
+      "symbol": "ADBE",
+      "name": "Adobe Inc.",
+      "exchange": "NASDAQ",
+      "tradingviewSymbol": "NASDAQ:ADBE",
+      "verifiedAt": "2026-11-19"
+    },
+    {
+      "id": "ADI",
+      "symbol": "ADI",
+      "name": "Analog Devices Inc",
+      "exchange": "NASDAQ",
+      "tradingviewSymbol": "NASDAQ:ADI",
+      "verifiedAt": "2026-11-19"
+    },
+    {
+      "id": "ADP",
+      "symbol": "ADP",
+      "name": "Automatic Data Processing Inc",
+      "exchange": "NASDAQ",
+      "tradingviewSymbol": "NASDAQ:ADP",
+      "verifiedAt": "2026-11-19"
+    },
+    {
+      "id": "ADSK",
+      "symbol": "ADSK",
+      "name": "Autodesk Inc",
+      "exchange": "NASDAQ",
+      "tradingviewSymbol": "NASDAQ:ADSK",
+      "verifiedAt": "2026-11-19"
+    },
+    {
+      "id": "AEP",
+      "symbol": "AEP",
+      "name": "American Electric Power Co Inc",
+      "exchange": "NASDAQ",
+      "tradingviewSymbol": "NASDAQ:AEP",
+      "verifiedAt": "2026-11-19"
+    },
+    {
+      "id": "ALAB",
+      "symbol": "ALAB",
+      "name": "Astera Labs Inc",
+      "exchange": "NASDAQ",
+      "tradingviewSymbol": "NASDAQ:ALAB",
+      "verifiedAt": "2026-11-19"
+    },
+    {
+      "id": "ALNY",
+      "symbol": "ALNY",
+      "name": "Alnylam Pharmaceuticals Inc",
+      "exchange": "NASDAQ",
+      "tradingviewSymbol": "NASDAQ:ALNY",
+      "verifiedAt": "2026-11-19"
+    },
+    {
+      "id": "AMAT",
+      "symbol": "AMAT",
+      "name": "Applied Materials",
+      "exchange": "NASDAQ",
+      "tradingviewSymbol": "NASDAQ:AMAT",
+      "verifiedAt": "2026-11-19"
+    },
+    {
+      "id": "AMD",
+      "symbol": "AMD",
+      "name": "Advanced Micro Devices",
+      "exchange": "NASDAQ",
+      "tradingviewSymbol": "NASDAQ:AMD",
+      "verifiedAt": "2026-11-19"
+    },
+    {
+      "id": "AMGN",
+      "symbol": "AMGN",
+      "name": "Amgen",
+      "exchange": "NASDAQ",
+      "tradingviewSymbol": "NASDAQ:AMGN",
+      "verifiedAt": "2026-11-19"
+    },
+    {
+      "id": "AMT",
+      "symbol": "AMT",
+      "name": "American Tower",
+      "exchange": "NYSE",
+      "tradingviewSymbol": "NYSE:AMT",
+      "verifiedAt": "2026-11-19"
+    },
+    {
+      "id": "AMZN",
+      "symbol": "AMZN",
+      "name": "Amazon",
+      "exchange": "NASDAQ",
+      "tradingviewSymbol": "NASDAQ:AMZN",
+      "verifiedAt": "2026-11-19"
+    },
+    {
+      "id": "ANET",
+      "symbol": "ANET",
+      "name": "Arista Networks",
+      "exchange": "NYSE",
+      "tradingviewSymbol": "NYSE:ANET",
+      "verifiedAt": "2026-11-19"
+    },
+    {
+      "id": "APP",
+      "symbol": "APP",
+      "name": "AppLovin Corp",
+      "exchange": "NASDAQ",
+      "tradingviewSymbol": "NASDAQ:APP",
+      "verifiedAt": "2026-11-19"
+    },
+    {
+      "id": "ARM",
+      "symbol": "ARM",
+      "name": "ARM Holdings PLC",
+      "exchange": "NASDAQ",
+      "tradingviewSymbol": "NASDAQ:ARM",
+      "verifiedAt": "2026-11-19"
+    },
+    {
+      "id": "ASML",
+      "symbol": "ASML",
+      "name": "ASML Holding NV",
+      "exchange": "NASDAQ",
+      "tradingviewSymbol": "NASDAQ:ASML",
+      "verifiedAt": "2026-11-19"
+    },
+    {
+      "id": "AVGO",
+      "symbol": "AVGO",
+      "name": "Broadcom",
+      "exchange": "NASDAQ",
+      "tradingviewSymbol": "NASDAQ:AVGO",
+      "verifiedAt": "2026-11-19"
+    },
+    {
+      "id": "AXON",
+      "symbol": "AXON",
+      "name": "Axon Enterprise Inc",
+      "exchange": "NASDAQ",
+      "tradingviewSymbol": "NASDAQ:AXON",
+      "verifiedAt": "2026-11-19"
+    },
+    {
+      "id": "AXP",
+      "symbol": "AXP",
+      "name": "American Express",
+      "exchange": "NYSE",
+      "tradingviewSymbol": "NYSE:AXP",
+      "verifiedAt": "2026-11-19"
+    },
+    {
+      "id": "BA",
+      "symbol": "BA",
+      "name": "Boeing",
+      "exchange": "NYSE",
+      "tradingviewSymbol": "NYSE:BA",
+      "verifiedAt": "2026-11-19"
+    },
+    {
+      "id": "BAC",
+      "symbol": "BAC",
+      "name": "Bank of America",
+      "exchange": "NYSE",
+      "tradingviewSymbol": "NYSE:BAC",
+      "verifiedAt": "2026-11-19"
+    },
+    {
+      "id": "BKNG",
+      "symbol": "BKNG",
+      "name": "Booking Holdings",
+      "exchange": "NASDAQ",
+      "tradingviewSymbol": "NASDAQ:BKNG",
+      "verifiedAt": "2026-11-19"
+    },
+    {
+      "id": "BKR",
+      "symbol": "BKR",
+      "name": "Baker Hughes Co",
+      "exchange": "NASDAQ",
+      "tradingviewSymbol": "NASDAQ:BKR",
+      "verifiedAt": "2026-11-19"
+    },
+    {
+      "id": "BLK",
+      "symbol": "BLK",
+      "name": "BlackRock",
+      "exchange": "NYSE",
+      "tradingviewSymbol": "NYSE:BLK",
+      "verifiedAt": "2026-11-19"
+    },
+    {
+      "id": "BMY",
+      "symbol": "BMY",
+      "name": "Bristol Myers Squibb",
+      "exchange": "NYSE",
+      "tradingviewSymbol": "NYSE:BMY",
+      "verifiedAt": "2026-11-19"
+    },
+    {
+      "id": "BNY",
+      "symbol": "BNY",
+      "name": "BNY Mellon",
+      "exchange": "NYSE",
+      "tradingviewSymbol": "NYSE:BNY",
+      "verifiedAt": "2026-11-19"
+    },
+    {
+      "id": "BRK.B",
+      "symbol": "BRK.B",
+      "name": "Berkshire Hathaway (clase B)",
+      "exchange": "NYSE",
+      "tradingviewSymbol": "NYSE:BRK.B",
+      "verifiedAt": "2026-11-19"
+    },
+    {
+      "id": "C",
+      "symbol": "C",
+      "name": "Citigroup",
+      "exchange": "NYSE",
+      "tradingviewSymbol": "NYSE:C",
+      "verifiedAt": "2026-11-19"
+    },
+    {
+      "id": "CAT",
+      "symbol": "CAT",
+      "name": "Caterpillar Inc.",
+      "exchange": "NYSE",
+      "tradingviewSymbol": "NYSE:CAT",
+      "verifiedAt": "2026-11-19"
+    },
+    {
+      "id": "CCEP",
+      "symbol": "CCEP",
+      "name": "Coca-Cola Europacific Partners PLC",
+      "exchange": "NASDAQ",
+      "tradingviewSymbol": "NASDAQ:CCEP",
+      "verifiedAt": "2026-11-19"
+    },
+    {
+      "id": "CDNS",
+      "symbol": "CDNS",
+      "name": "Cadence Design Systems Inc",
+      "exchange": "NASDAQ",
+      "tradingviewSymbol": "NASDAQ:CDNS",
+      "verifiedAt": "2026-11-19"
+    },
+    {
+      "id": "CEG",
+      "symbol": "CEG",
+      "name": "Constellation Energy Corp",
+      "exchange": "NASDAQ",
+      "tradingviewSymbol": "NASDAQ:CEG",
+      "verifiedAt": "2026-11-19"
+    },
+    {
+      "id": "CMCSA",
+      "symbol": "CMCSA",
+      "name": "Comcast",
+      "exchange": "NASDAQ",
+      "tradingviewSymbol": "NASDAQ:CMCSA",
+      "verifiedAt": "2026-11-19"
+    },
+    {
+      "id": "COF",
+      "symbol": "COF",
+      "name": "Capital One",
+      "exchange": "NYSE",
+      "tradingviewSymbol": "NYSE:COF",
+      "verifiedAt": "2026-11-19"
+    },
+    {
+      "id": "COP",
+      "symbol": "COP",
+      "name": "ConocoPhillips",
+      "exchange": "NYSE",
+      "tradingviewSymbol": "NYSE:COP",
+      "verifiedAt": "2026-11-19"
+    },
+    {
+      "id": "COST",
+      "symbol": "COST",
+      "name": "Costco",
+      "exchange": "NASDAQ",
+      "tradingviewSymbol": "NASDAQ:COST",
+      "verifiedAt": "2026-11-19"
+    },
+    {
+      "id": "CPRT",
+      "symbol": "CPRT",
+      "name": "Copart Inc",
+      "exchange": "NASDAQ",
+      "tradingviewSymbol": "NASDAQ:CPRT",
+      "verifiedAt": "2026-11-19"
+    },
+    {
+      "id": "CRM",
+      "symbol": "CRM",
+      "name": "Salesforce",
+      "exchange": "NYSE",
+      "tradingviewSymbol": "NYSE:CRM",
+      "verifiedAt": "2026-11-19"
+    },
+    {
+      "id": "CRWD",
+      "symbol": "CRWD",
+      "name": "Crowdstrike Holdings Inc",
+      "exchange": "NASDAQ",
+      "tradingviewSymbol": "NASDAQ:CRWD",
+      "verifiedAt": "2026-11-19"
+    },
+    {
+      "id": "CRWV",
+      "symbol": "CRWV",
+      "name": "CoreWeave Inc",
+      "exchange": "NASDAQ",
+      "tradingviewSymbol": "NASDAQ:CRWV",
+      "verifiedAt": "2026-11-19"
+    },
+    {
+      "id": "CSCO",
+      "symbol": "CSCO",
+      "name": "Cisco",
+      "exchange": "NASDAQ",
+      "tradingviewSymbol": "NASDAQ:CSCO",
+      "verifiedAt": "2026-11-19"
+    },
+    {
+      "id": "CSX",
+      "symbol": "CSX",
+      "name": "CSX Corp",
+      "exchange": "NASDAQ",
+      "tradingviewSymbol": "NASDAQ:CSX",
+      "verifiedAt": "2026-11-19"
+    },
+    {
+      "id": "CTAS",
+      "symbol": "CTAS",
+      "name": "Cintas Corp",
+      "exchange": "NASDAQ",
+      "tradingviewSymbol": "NASDAQ:CTAS",
+      "verifiedAt": "2026-11-19"
+    },
+    {
+      "id": "CVS",
+      "symbol": "CVS",
+      "name": "CVS Health",
+      "exchange": "NYSE",
+      "tradingviewSymbol": "NYSE:CVS",
+      "verifiedAt": "2026-11-19"
+    },
+    {
+      "id": "CVX",
+      "symbol": "CVX",
+      "name": "Chevron Corporation",
+      "exchange": "NYSE",
+      "tradingviewSymbol": "NYSE:CVX",
+      "verifiedAt": "2026-11-19"
+    },
+    {
+      "id": "DASH",
+      "symbol": "DASH",
+      "name": "DoorDash Inc",
+      "exchange": "NASDAQ",
+      "tradingviewSymbol": "NASDAQ:DASH",
+      "verifiedAt": "2026-11-19"
+    },
+    {
+      "id": "DDOG",
+      "symbol": "DDOG",
+      "name": "Datadog Inc",
+      "exchange": "NASDAQ",
+      "tradingviewSymbol": "NASDAQ:DDOG",
+      "verifiedAt": "2026-11-19"
+    },
+    {
+      "id": "DE",
+      "symbol": "DE",
+      "name": "Deere & Company",
+      "exchange": "NYSE",
+      "tradingviewSymbol": "NYSE:DE",
+      "verifiedAt": "2026-11-19"
+    },
+    {
+      "id": "DELL",
+      "symbol": "DELL",
+      "name": "Dell Technologies",
+      "exchange": "NYSE",
+      "tradingviewSymbol": "NYSE:DELL",
+      "verifiedAt": "2026-11-19"
+    },
+    {
+      "id": "DHR",
+      "symbol": "DHR",
+      "name": "Danaher Corporation",
+      "exchange": "NYSE",
+      "tradingviewSymbol": "NYSE:DHR",
+      "verifiedAt": "2026-11-19"
+    },
+    {
+      "id": "DIS",
+      "symbol": "DIS",
+      "name": "Walt Disney Company (The)",
+      "exchange": "NYSE",
+      "tradingviewSymbol": "NYSE:DIS",
+      "verifiedAt": "2026-11-19"
+    },
+    {
+      "id": "DUK",
+      "symbol": "DUK",
+      "name": "Duke Energy",
+      "exchange": "NYSE",
+      "tradingviewSymbol": "NYSE:DUK",
+      "verifiedAt": "2026-11-19"
+    },
+    {
+      "id": "DXCM",
+      "symbol": "DXCM",
+      "name": "Dexcom Inc",
+      "exchange": "NASDAQ",
+      "tradingviewSymbol": "NASDAQ:DXCM",
+      "verifiedAt": "2026-11-19"
+    },
+    {
+      "id": "EMR",
+      "symbol": "EMR",
+      "name": "Emerson Electric",
+      "exchange": "NYSE",
+      "tradingviewSymbol": "NYSE:EMR",
+      "verifiedAt": "2026-11-19"
+    },
+    {
+      "id": "EXC",
+      "symbol": "EXC",
+      "name": "Exelon Corp",
+      "exchange": "NASDAQ",
+      "tradingviewSymbol": "NASDAQ:EXC",
+      "verifiedAt": "2026-11-19"
+    },
+    {
+      "id": "FANG",
+      "symbol": "FANG",
+      "name": "Diamondback Energy Inc",
+      "exchange": "NASDAQ",
+      "tradingviewSymbol": "NASDAQ:FANG",
+      "verifiedAt": "2026-11-19"
+    },
+    {
+      "id": "FAST",
+      "symbol": "FAST",
+      "name": "Fastenal Co",
+      "exchange": "NASDAQ",
+      "tradingviewSymbol": "NASDAQ:FAST",
+      "verifiedAt": "2026-11-19"
+    },
+    {
+      "id": "FDX",
+      "symbol": "FDX",
+      "name": "FedEx",
+      "exchange": "NYSE",
+      "tradingviewSymbol": "NYSE:FDX",
+      "verifiedAt": "2026-11-19"
+    },
+    {
+      "id": "FER",
+      "symbol": "FER",
+      "name": "Ferrovial NV",
+      "exchange": "NASDAQ",
+      "tradingviewSymbol": "NASDAQ:FER",
+      "verifiedAt": "2026-11-19"
+    },
+    {
+      "id": "FTNT",
+      "symbol": "FTNT",
+      "name": "Fortinet Inc",
+      "exchange": "NASDAQ",
+      "tradingviewSymbol": "NASDAQ:FTNT",
+      "verifiedAt": "2026-11-19"
+    },
+    {
+      "id": "GD",
+      "symbol": "GD",
+      "name": "General Dynamics",
+      "exchange": "NYSE",
+      "tradingviewSymbol": "NYSE:GD",
+      "verifiedAt": "2026-11-19"
+    },
+    {
+      "id": "GE",
+      "symbol": "GE",
+      "name": "GE Aerospace",
+      "exchange": "NYSE",
+      "tradingviewSymbol": "NYSE:GE",
+      "verifiedAt": "2026-11-19"
+    },
+    {
+      "id": "GEHC",
+      "symbol": "GEHC",
+      "name": "GE HealthCare Technologies Inc",
+      "exchange": "NASDAQ",
+      "tradingviewSymbol": "NASDAQ:GEHC",
+      "verifiedAt": "2026-11-19"
+    },
+    {
+      "id": "GEV",
+      "symbol": "GEV",
+      "name": "GE Vernova",
+      "exchange": "NYSE",
+      "tradingviewSymbol": "NYSE:GEV",
+      "verifiedAt": "2026-11-19"
+    },
+    {
+      "id": "GILD",
+      "symbol": "GILD",
+      "name": "Gilead Sciences",
+      "exchange": "NASDAQ",
+      "tradingviewSymbol": "NASDAQ:GILD",
+      "verifiedAt": "2026-11-19"
+    },
+    {
+      "id": "GM",
+      "symbol": "GM",
+      "name": "General Motors",
+      "exchange": "NASDAQ",
+      "tradingviewSymbol": "NASDAQ:GM",
+      "verifiedAt": "2026-11-19"
+    },
+    {
+      "id": "GOOG",
+      "symbol": "GOOG",
+      "name": "Alphabet Inc. (clase C)",
+      "exchange": "NASDAQ",
+      "tradingviewSymbol": "NASDAQ:GOOG",
+      "verifiedAt": "2026-11-19"
+    },
+    {
+      "id": "GOOGL",
+      "symbol": "GOOGL",
+      "name": "Alphabet Inc. (clase A)",
+      "exchange": "NASDAQ",
+      "tradingviewSymbol": "NASDAQ:GOOGL",
+      "verifiedAt": "2026-11-19"
+    },
+    {
+      "id": "GS",
+      "symbol": "GS",
+      "name": "Goldman Sachs",
+      "exchange": "NYSE",
+      "tradingviewSymbol": "NYSE:GS",
+      "verifiedAt": "2026-11-19"
+    },
+    {
+      "id": "HD",
+      "symbol": "HD",
+      "name": "Home Depot",
+      "exchange": "NYSE",
+      "tradingviewSymbol": "NYSE:HD",
+      "verifiedAt": "2026-11-19"
+    },
+    {
+      "id": "HON",
+      "symbol": "HON",
+      "name": "Honeywell International Inc",
+      "exchange": "NASDAQ",
+      "tradingviewSymbol": "NASDAQ:HON",
+      "verifiedAt": "2026-11-19"
+    },
+    {
+      "id": "HONA",
+      "symbol": "HONA",
+      "name": "Honeywell Aerospace Inc",
+      "exchange": "NASDAQ",
+      "tradingviewSymbol": "NASDAQ:HONA",
+      "verifiedAt": "2026-11-19"
+    },
+    {
+      "id": "IBM",
+      "symbol": "IBM",
+      "name": "IBM",
+      "exchange": "NYSE",
+      "tradingviewSymbol": "NYSE:IBM",
+      "verifiedAt": "2026-11-19"
+    },
+    {
+      "id": "IDXX",
+      "symbol": "IDXX",
+      "name": "IDEXX Laboratories Inc",
+      "exchange": "NASDAQ",
+      "tradingviewSymbol": "NASDAQ:IDXX",
+      "verifiedAt": "2026-11-19"
+    },
+    {
+      "id": "INTC",
+      "symbol": "INTC",
+      "name": "Intel",
+      "exchange": "NASDAQ",
+      "tradingviewSymbol": "NASDAQ:INTC",
+      "verifiedAt": "2026-11-19"
+    },
+    {
+      "id": "INTU",
+      "symbol": "INTU",
+      "name": "Intuit",
+      "exchange": "NASDAQ",
+      "tradingviewSymbol": "NASDAQ:INTU",
+      "verifiedAt": "2026-11-19"
+    },
+    {
+      "id": "ISRG",
+      "symbol": "ISRG",
+      "name": "Intuitive Surgical",
+      "exchange": "NASDAQ",
+      "tradingviewSymbol": "NASDAQ:ISRG",
+      "verifiedAt": "2026-11-19"
+    },
+    {
+      "id": "JNJ",
+      "symbol": "JNJ",
+      "name": "Johnson & Johnson",
+      "exchange": "NYSE",
+      "tradingviewSymbol": "NYSE:JNJ",
+      "verifiedAt": "2026-11-19"
+    },
+    {
+      "id": "JPM",
+      "symbol": "JPM",
+      "name": "JPMorgan Chase",
+      "exchange": "NYSE",
+      "tradingviewSymbol": "NYSE:JPM",
+      "verifiedAt": "2026-11-19"
+    },
+    {
+      "id": "KDP",
+      "symbol": "KDP",
+      "name": "Keurig Dr Pepper Inc",
+      "exchange": "NASDAQ",
+      "tradingviewSymbol": "NASDAQ:KDP",
+      "verifiedAt": "2026-11-19"
+    },
+    {
+      "id": "KLAC",
+      "symbol": "KLAC",
+      "name": "KLA Corp",
+      "exchange": "NASDAQ",
+      "tradingviewSymbol": "NASDAQ:KLAC",
+      "verifiedAt": "2026-11-19"
+    },
+    {
+      "id": "KO",
+      "symbol": "KO",
+      "name": "Coca-Cola Company (The)",
+      "exchange": "NYSE",
+      "tradingviewSymbol": "NYSE:KO",
+      "verifiedAt": "2026-11-19"
+    },
+    {
+      "id": "LIN",
+      "symbol": "LIN",
+      "name": "Linde plc",
+      "exchange": "NASDAQ",
+      "tradingviewSymbol": "NASDAQ:LIN",
+      "verifiedAt": "2026-11-19"
+    },
+    {
+      "id": "LITE",
+      "symbol": "LITE",
+      "name": "Lumentum Holdings Inc",
+      "exchange": "NASDAQ",
+      "tradingviewSymbol": "NASDAQ:LITE",
+      "verifiedAt": "2026-11-19"
+    },
+    {
+      "id": "LLY",
+      "symbol": "LLY",
+      "name": "Eli Lilly and Company",
+      "exchange": "NYSE",
+      "tradingviewSymbol": "NYSE:LLY",
+      "verifiedAt": "2026-11-19"
+    },
+    {
+      "id": "LMT",
+      "symbol": "LMT",
+      "name": "Lockheed Martin",
+      "exchange": "NYSE",
+      "tradingviewSymbol": "NYSE:LMT",
+      "verifiedAt": "2026-11-19"
+    },
+    {
+      "id": "LOW",
+      "symbol": "LOW",
+      "name": "Lowe's",
+      "exchange": "NYSE",
+      "tradingviewSymbol": "NYSE:LOW",
+      "verifiedAt": "2026-11-19"
+    },
+    {
+      "id": "LRCX",
+      "symbol": "LRCX",
+      "name": "Lam Research",
+      "exchange": "NASDAQ",
+      "tradingviewSymbol": "NASDAQ:LRCX",
+      "verifiedAt": "2026-11-19"
+    },
+    {
+      "id": "MA",
+      "symbol": "MA",
+      "name": "Mastercard",
+      "exchange": "NYSE",
+      "tradingviewSymbol": "NYSE:MA",
+      "verifiedAt": "2026-11-19"
+    },
+    {
+      "id": "MAR",
+      "symbol": "MAR",
+      "name": "Marriott International Inc/MD",
+      "exchange": "NASDAQ",
+      "tradingviewSymbol": "NASDAQ:MAR",
+      "verifiedAt": "2026-11-19"
+    },
+    {
+      "id": "MCD",
+      "symbol": "MCD",
+      "name": "McDonald's",
+      "exchange": "NYSE",
+      "tradingviewSymbol": "NYSE:MCD",
+      "verifiedAt": "2026-11-19"
+    },
+    {
+      "id": "MCHP",
+      "symbol": "MCHP",
+      "name": "Microchip Technology Inc",
+      "exchange": "NASDAQ",
+      "tradingviewSymbol": "NASDAQ:MCHP",
+      "verifiedAt": "2026-11-19"
+    },
+    {
+      "id": "MDLZ",
+      "symbol": "MDLZ",
+      "name": "Mondelēz International",
+      "exchange": "NASDAQ",
+      "tradingviewSymbol": "NASDAQ:MDLZ",
+      "verifiedAt": "2026-11-19"
+    },
+    {
+      "id": "MDT",
+      "symbol": "MDT",
+      "name": "Medtronic",
+      "exchange": "NYSE",
+      "tradingviewSymbol": "NYSE:MDT",
+      "verifiedAt": "2026-11-19"
+    },
+    {
+      "id": "MELI",
+      "symbol": "MELI",
+      "name": "MercadoLibre Inc",
+      "exchange": "NASDAQ",
+      "tradingviewSymbol": "NASDAQ:MELI",
+      "verifiedAt": "2026-11-19"
+    },
+    {
+      "id": "META",
+      "symbol": "META",
+      "name": "Meta Platforms",
+      "exchange": "NASDAQ",
+      "tradingviewSymbol": "NASDAQ:META",
+      "verifiedAt": "2026-11-19"
+    },
+    {
+      "id": "MMM",
+      "symbol": "MMM",
+      "name": "3M",
+      "exchange": "NYSE",
+      "tradingviewSymbol": "NYSE:MMM",
+      "verifiedAt": "2026-11-19"
+    },
+    {
+      "id": "MNST",
+      "symbol": "MNST",
+      "name": "Monster Beverage Corp",
+      "exchange": "NASDAQ",
+      "tradingviewSymbol": "NASDAQ:MNST",
+      "verifiedAt": "2026-11-19"
+    },
+    {
+      "id": "MO",
+      "symbol": "MO",
+      "name": "Altria",
+      "exchange": "NYSE",
+      "tradingviewSymbol": "NYSE:MO",
+      "verifiedAt": "2026-11-19"
+    },
+    {
+      "id": "MPWR",
+      "symbol": "MPWR",
+      "name": "Monolithic Power Systems Inc",
+      "exchange": "NASDAQ",
+      "tradingviewSymbol": "NASDAQ:MPWR",
+      "verifiedAt": "2026-11-19"
+    },
+    {
+      "id": "MRK",
+      "symbol": "MRK",
+      "name": "Merck & Co.",
+      "exchange": "NYSE",
+      "tradingviewSymbol": "NYSE:MRK",
+      "verifiedAt": "2026-11-19"
+    },
+    {
+      "id": "MRNA",
+      "symbol": "MRNA",
+      "name": "Moderna Inc",
+      "exchange": "NASDAQ",
+      "tradingviewSymbol": "NASDAQ:MRNA",
+      "verifiedAt": "2026-11-19"
+    },
+    {
+      "id": "MRVL",
+      "symbol": "MRVL",
+      "name": "Marvell Technology Inc",
+      "exchange": "NASDAQ",
+      "tradingviewSymbol": "NASDAQ:MRVL",
+      "verifiedAt": "2026-11-19"
+    },
+    {
+      "id": "MS",
+      "symbol": "MS",
+      "name": "Morgan Stanley",
+      "exchange": "NYSE",
+      "tradingviewSymbol": "NYSE:MS",
+      "verifiedAt": "2026-11-19"
+    },
+    {
+      "id": "MSFT",
+      "symbol": "MSFT",
+      "name": "Microsoft",
+      "exchange": "NASDAQ",
+      "tradingviewSymbol": "NASDAQ:MSFT",
+      "verifiedAt": "2026-11-19"
+    },
+    {
+      "id": "MSTR",
+      "symbol": "MSTR",
+      "name": "Strategy Inc",
+      "exchange": "NASDAQ",
+      "tradingviewSymbol": "NASDAQ:MSTR",
+      "verifiedAt": "2026-11-19"
+    },
+    {
+      "id": "MU",
+      "symbol": "MU",
+      "name": "Micron Technology",
+      "exchange": "NASDAQ",
+      "tradingviewSymbol": "NASDAQ:MU",
+      "verifiedAt": "2026-11-19"
+    },
+    {
+      "id": "NBIS",
+      "symbol": "NBIS",
+      "name": "Nebius Group NV",
+      "exchange": "NASDAQ",
+      "tradingviewSymbol": "NASDAQ:NBIS",
+      "verifiedAt": "2026-11-19"
+    },
+    {
+      "id": "NEE",
+      "symbol": "NEE",
+      "name": "NextEra Energy",
+      "exchange": "NYSE",
+      "tradingviewSymbol": "NYSE:NEE",
+      "verifiedAt": "2026-11-19"
+    },
+    {
+      "id": "NFLX",
+      "symbol": "NFLX",
+      "name": "Netflix, Inc.",
+      "exchange": "NASDAQ",
+      "tradingviewSymbol": "NASDAQ:NFLX",
+      "verifiedAt": "2026-11-19"
+    },
+    {
+      "id": "NOW",
+      "symbol": "NOW",
+      "name": "ServiceNow",
+      "exchange": "NYSE",
+      "tradingviewSymbol": "NYSE:NOW",
+      "verifiedAt": "2026-11-19"
+    },
+    {
+      "id": "NVDA",
+      "symbol": "NVDA",
+      "name": "Nvidia",
+      "exchange": "NASDAQ",
+      "tradingviewSymbol": "NASDAQ:NVDA",
+      "verifiedAt": "2026-11-19"
+    },
+    {
+      "id": "NXPI",
+      "symbol": "NXPI",
+      "name": "NXP Semiconductors NV",
+      "exchange": "NASDAQ",
+      "tradingviewSymbol": "NASDAQ:NXPI",
+      "verifiedAt": "2026-11-19"
+    },
+    {
+      "id": "ODFL",
+      "symbol": "ODFL",
+      "name": "Old Dominion Freight Line Inc",
+      "exchange": "NASDAQ",
+      "tradingviewSymbol": "NASDAQ:ODFL",
+      "verifiedAt": "2026-11-19"
+    },
+    {
+      "id": "ORCL",
+      "symbol": "ORCL",
+      "name": "Oracle Corporation",
+      "exchange": "NYSE",
+      "tradingviewSymbol": "NYSE:ORCL",
+      "verifiedAt": "2026-11-19"
+    },
+    {
+      "id": "ORLY",
+      "symbol": "ORLY",
+      "name": "O'Reilly Automotive Inc",
+      "exchange": "NASDAQ",
+      "tradingviewSymbol": "NASDAQ:ORLY",
+      "verifiedAt": "2026-11-19"
+    },
+    {
+      "id": "PANW",
+      "symbol": "PANW",
+      "name": "Palo Alto Networks",
+      "exchange": "NASDAQ",
+      "tradingviewSymbol": "NASDAQ:PANW",
+      "verifiedAt": "2026-11-19"
+    },
+    {
+      "id": "PAYX",
+      "symbol": "PAYX",
+      "name": "Paychex Inc",
+      "exchange": "NASDAQ",
+      "tradingviewSymbol": "NASDAQ:PAYX",
+      "verifiedAt": "2026-11-19"
+    },
+    {
+      "id": "PCAR",
+      "symbol": "PCAR",
+      "name": "PACCAR Inc",
+      "exchange": "NASDAQ",
+      "tradingviewSymbol": "NASDAQ:PCAR",
+      "verifiedAt": "2026-11-19"
+    },
+    {
+      "id": "PDD",
+      "symbol": "PDD",
+      "name": "PDD Holdings Inc",
+      "exchange": "NASDAQ",
+      "tradingviewSymbol": "NASDAQ:PDD",
+      "verifiedAt": "2026-11-19"
+    },
+    {
+      "id": "PEP",
+      "symbol": "PEP",
+      "name": "PepsiCo",
+      "exchange": "NASDAQ",
+      "tradingviewSymbol": "NASDAQ:PEP",
+      "verifiedAt": "2026-11-19"
+    },
+    {
+      "id": "PFE",
+      "symbol": "PFE",
+      "name": "Pfizer",
+      "exchange": "NYSE",
+      "tradingviewSymbol": "NYSE:PFE",
+      "verifiedAt": "2026-11-19"
+    },
+    {
+      "id": "PG",
+      "symbol": "PG",
+      "name": "Procter & Gamble",
+      "exchange": "NYSE",
+      "tradingviewSymbol": "NYSE:PG",
+      "verifiedAt": "2026-11-19"
+    },
+    {
+      "id": "PLTR",
+      "symbol": "PLTR",
+      "name": "Palantir Technologies",
+      "exchange": "NASDAQ",
+      "tradingviewSymbol": "NASDAQ:PLTR",
+      "verifiedAt": "2026-11-19"
+    },
+    {
+      "id": "PM",
+      "symbol": "PM",
+      "name": "Philip Morris International",
+      "exchange": "NYSE",
+      "tradingviewSymbol": "NYSE:PM",
+      "verifiedAt": "2026-11-19"
+    },
+    {
+      "id": "PYPL",
+      "symbol": "PYPL",
+      "name": "PayPal Holdings Inc",
+      "exchange": "NASDAQ",
+      "tradingviewSymbol": "NASDAQ:PYPL",
+      "verifiedAt": "2026-11-19"
+    },
+    {
+      "id": "QCOM",
+      "symbol": "QCOM",
+      "name": "Qualcomm",
+      "exchange": "NASDAQ",
+      "tradingviewSymbol": "NASDAQ:QCOM",
+      "verifiedAt": "2026-11-19"
+    },
+    {
+      "id": "REGN",
+      "symbol": "REGN",
+      "name": "Regeneron Pharmaceuticals Inc",
+      "exchange": "NASDAQ",
+      "tradingviewSymbol": "NASDAQ:REGN",
+      "verifiedAt": "2026-11-19"
+    },
+    {
+      "id": "RKLB",
+      "symbol": "RKLB",
+      "name": "Rocket Lab Corp",
+      "exchange": "NASDAQ",
+      "tradingviewSymbol": "NASDAQ:RKLB",
+      "verifiedAt": "2026-11-19"
+    },
+    {
+      "id": "ROP",
+      "symbol": "ROP",
+      "name": "Roper Technologies Inc",
+      "exchange": "NASDAQ",
+      "tradingviewSymbol": "NASDAQ:ROP",
+      "verifiedAt": "2026-11-19"
+    },
+    {
+      "id": "ROST",
+      "symbol": "ROST",
+      "name": "Ross Stores Inc",
+      "exchange": "NASDAQ",
+      "tradingviewSymbol": "NASDAQ:ROST",
+      "verifiedAt": "2026-11-19"
+    },
+    {
+      "id": "RTX",
+      "symbol": "RTX",
+      "name": "RTX Corporation",
+      "exchange": "NYSE",
+      "tradingviewSymbol": "NYSE:RTX",
+      "verifiedAt": "2026-11-19"
+    },
+    {
+      "id": "SBUX",
+      "symbol": "SBUX",
+      "name": "Starbucks",
+      "exchange": "NASDAQ",
+      "tradingviewSymbol": "NASDAQ:SBUX",
+      "verifiedAt": "2026-11-19"
+    },
+    {
+      "id": "SCHW",
+      "symbol": "SCHW",
+      "name": "Charles Schwab Corporation",
+      "exchange": "NYSE",
+      "tradingviewSymbol": "NYSE:SCHW",
+      "verifiedAt": "2026-11-19"
+    },
+    {
+      "id": "SHOP",
+      "symbol": "SHOP",
+      "name": "Shopify Inc",
+      "exchange": "NASDAQ",
+      "tradingviewSymbol": "NASDAQ:SHOP",
+      "verifiedAt": "2026-11-19"
+    },
+    {
+      "id": "SNDK",
+      "symbol": "SNDK",
+      "name": "Sandisk",
+      "exchange": "NASDAQ",
+      "tradingviewSymbol": "NASDAQ:SNDK",
+      "verifiedAt": "2026-11-19"
+    },
+    {
+      "id": "SNPS",
+      "symbol": "SNPS",
+      "name": "Synopsys Inc",
+      "exchange": "NASDAQ",
+      "tradingviewSymbol": "NASDAQ:SNPS",
+      "verifiedAt": "2026-11-19"
+    },
+    {
+      "id": "SO",
+      "symbol": "SO",
+      "name": "Southern Company",
+      "exchange": "NYSE",
+      "tradingviewSymbol": "NYSE:SO",
+      "verifiedAt": "2026-11-19"
+    },
+    {
+      "id": "SPCX",
+      "symbol": "SPCX",
+      "name": "Space Exploration Technologies Corp",
+      "exchange": "NASDAQ",
+      "tradingviewSymbol": "NASDAQ:SPCX",
+      "verifiedAt": "2026-11-19"
+    },
+    {
+      "id": "STX",
+      "symbol": "STX",
+      "name": "Seagate Technology Holdings PLC",
+      "exchange": "NASDAQ",
+      "tradingviewSymbol": "NASDAQ:STX",
+      "verifiedAt": "2026-11-19"
+    },
+    {
+      "id": "T",
+      "symbol": "T",
+      "name": "AT&T",
+      "exchange": "NYSE",
+      "tradingviewSymbol": "NYSE:T",
+      "verifiedAt": "2026-11-19"
+    },
+    {
+      "id": "TER",
+      "symbol": "TER",
+      "name": "Teradyne Inc",
+      "exchange": "NASDAQ",
+      "tradingviewSymbol": "NASDAQ:TER",
+      "verifiedAt": "2026-11-19"
+    },
+    {
+      "id": "TMO",
+      "symbol": "TMO",
+      "name": "Thermo Fisher Scientific",
+      "exchange": "NYSE",
+      "tradingviewSymbol": "NYSE:TMO",
+      "verifiedAt": "2026-11-19"
+    },
+    {
+      "id": "TMUS",
+      "symbol": "TMUS",
+      "name": "T-Mobile US",
+      "exchange": "NASDAQ",
+      "tradingviewSymbol": "NASDAQ:TMUS",
+      "verifiedAt": "2026-11-19"
+    },
+    {
+      "id": "TRI",
+      "symbol": "TRI",
+      "name": "Thomson Reuters Corp",
+      "exchange": "NASDAQ",
+      "tradingviewSymbol": "NASDAQ:TRI",
+      "verifiedAt": "2026-11-19"
+    },
+    {
+      "id": "TSLA",
+      "symbol": "TSLA",
+      "name": "Tesla, Inc.",
+      "exchange": "NASDAQ",
+      "tradingviewSymbol": "NASDAQ:TSLA",
+      "verifiedAt": "2026-11-19"
+    },
+    {
+      "id": "TTWO",
+      "symbol": "TTWO",
+      "name": "Take-Two Interactive Software Inc",
+      "exchange": "NASDAQ",
+      "tradingviewSymbol": "NASDAQ:TTWO",
+      "verifiedAt": "2026-11-19"
+    },
+    {
+      "id": "TXN",
+      "symbol": "TXN",
+      "name": "Texas Instruments",
+      "exchange": "NASDAQ",
+      "tradingviewSymbol": "NASDAQ:TXN",
+      "verifiedAt": "2026-11-19"
+    },
+    {
+      "id": "UBER",
+      "symbol": "UBER",
+      "name": "Uber",
+      "exchange": "NYSE",
+      "tradingviewSymbol": "NYSE:UBER",
+      "verifiedAt": "2026-11-19"
+    },
+    {
+      "id": "UNH",
+      "symbol": "UNH",
+      "name": "UnitedHealth Group",
+      "exchange": "NYSE",
+      "tradingviewSymbol": "NYSE:UNH",
+      "verifiedAt": "2026-11-19"
+    },
+    {
+      "id": "UNP",
+      "symbol": "UNP",
+      "name": "Union Pacific Corporation",
+      "exchange": "NYSE",
+      "tradingviewSymbol": "NYSE:UNP",
+      "verifiedAt": "2026-11-19"
+    },
+    {
+      "id": "UPS",
+      "symbol": "UPS",
+      "name": "United Parcel Service",
+      "exchange": "NYSE",
+      "tradingviewSymbol": "NYSE:UPS",
+      "verifiedAt": "2026-11-19"
+    },
+    {
+      "id": "USB",
+      "symbol": "USB",
+      "name": "U.S. Bancorp",
+      "exchange": "NYSE",
+      "tradingviewSymbol": "NYSE:USB",
+      "verifiedAt": "2026-11-19"
+    },
+    {
+      "id": "V",
+      "symbol": "V",
+      "name": "Visa Inc.",
+      "exchange": "NYSE",
+      "tradingviewSymbol": "NYSE:V",
+      "verifiedAt": "2026-11-19"
+    },
+    {
+      "id": "VRTX",
+      "symbol": "VRTX",
+      "name": "Vertex Pharmaceuticals Inc",
+      "exchange": "NASDAQ",
+      "tradingviewSymbol": "NASDAQ:VRTX",
+      "verifiedAt": "2026-11-19"
+    },
+    {
+      "id": "VZ",
+      "symbol": "VZ",
+      "name": "Verizon",
+      "exchange": "NYSE",
+      "tradingviewSymbol": "NYSE:VZ",
+      "verifiedAt": "2026-11-19"
+    },
+    {
+      "id": "WDAY",
+      "symbol": "WDAY",
+      "name": "Workday Inc",
+      "exchange": "NASDAQ",
+      "tradingviewSymbol": "NASDAQ:WDAY",
+      "verifiedAt": "2026-11-19"
+    },
+    {
+      "id": "WDC",
+      "symbol": "WDC",
+      "name": "Western Digital Corp",
+      "exchange": "NASDAQ",
+      "tradingviewSymbol": "NASDAQ:WDC",
+      "verifiedAt": "2026-11-19"
+    },
+    {
+      "id": "WFC",
+      "symbol": "WFC",
+      "name": "Wells Fargo",
+      "exchange": "NYSE",
+      "tradingviewSymbol": "NYSE:WFC",
+      "verifiedAt": "2026-11-19"
+    },
+    {
+      "id": "WMT",
+      "symbol": "WMT",
+      "name": "Walmart",
+      "exchange": "NASDAQ",
+      "tradingviewSymbol": "NASDAQ:WMT",
+      "verifiedAt": "2026-11-19"
+    },
+    {
+      "id": "XEL",
+      "symbol": "XEL",
+      "name": "Xcel Energy Inc",
+      "exchange": "NASDAQ",
+      "tradingviewSymbol": "NASDAQ:XEL",
+      "verifiedAt": "2026-11-19"
+    },
+    {
+      "id": "XOM",
+      "symbol": "XOM",
+      "name": "ExxonMobil",
+      "exchange": "NYSE",
+      "tradingviewSymbol": "NYSE:XOM",
+      "verifiedAt": "2026-11-19"
+    }
+  ],
+  "indices": [
+    {
+      "id": "sp100",
+      "name": "S&P 100",
+      "description": "Grandes compañías de Estados Unidos, de distintos sectores, seleccionadas por S&P Dow Jones Indices.",
+      "verifiedAt": "2026-11-19",
+      "compositionDate": "2026-11-18",
+      "sourceUrl": "https://www.spglobal.com/spdji/en/indices/equity/sp-100/"
+    },
+    {
+      "id": "ndx",
+      "name": "Nasdaq-100",
+      "description": "Grandes compañías no financieras que cotizan en Nasdaq. Incluye empresas de Estados Unidos y de otros países.",
+      "verifiedAt": "2026-11-19",
+      "compositionDate": "2026-11-18",
+      "sourceUrl": "https://indexes.nasdaq.com/Index/Overview/NDX"
+    }
+  ],
+  "members": [
+    {
+      "indexId": "sp100",
+      "companyId": "AAPL"
+    },
+    {
+      "indexId": "sp100",
+      "companyId": "ABBV"
+    },
+    {
+      "indexId": "sp100",
+      "companyId": "ABT"
+    },
+    {
+      "indexId": "sp100",
+      "companyId": "ACN"
+    },
+    {
+      "indexId": "sp100",
+      "companyId": "ADBE"
+    },
+    {
+      "indexId": "sp100",
+      "companyId": "AMAT"
+    },
+    {
+      "indexId": "sp100",
+      "companyId": "AMD"
+    },
+    {
+      "indexId": "sp100",
+      "companyId": "AMGN"
+    },
+    {
+      "indexId": "sp100",
+      "companyId": "AMT"
+    },
+    {
+      "indexId": "sp100",
+      "companyId": "AMZN"
+    },
+    {
+      "indexId": "sp100",
+      "companyId": "ANET"
+    },
+    {
+      "indexId": "sp100",
+      "companyId": "AVGO"
+    },
+    {
+      "indexId": "sp100",
+      "companyId": "AXP"
+    },
+    {
+      "indexId": "sp100",
+      "companyId": "BA"
+    },
+    {
+      "indexId": "sp100",
+      "companyId": "BAC"
+    },
+    {
+      "indexId": "sp100",
+      "companyId": "BKNG"
+    },
+    {
+      "indexId": "sp100",
+      "companyId": "BLK"
+    },
+    {
+      "indexId": "sp100",
+      "companyId": "BMY"
+    },
+    {
+      "indexId": "sp100",
+      "companyId": "BNY"
+    },
+    {
+      "indexId": "sp100",
+      "companyId": "BRK.B"
+    },
+    {
+      "indexId": "sp100",
+      "companyId": "C"
+    },
+    {
+      "indexId": "sp100",
+      "companyId": "CAT"
+    },
+    {
+      "indexId": "sp100",
+      "companyId": "CMCSA"
+    },
+    {
+      "indexId": "sp100",
+      "companyId": "COF"
+    },
+    {
+      "indexId": "sp100",
+      "companyId": "COP"
+    },
+    {
+      "indexId": "sp100",
+      "companyId": "COST"
+    },
+    {
+      "indexId": "sp100",
+      "companyId": "CRM"
+    },
+    {
+      "indexId": "sp100",
+      "companyId": "CSCO"
+    },
+    {
+      "indexId": "sp100",
+      "companyId": "CVS"
+    },
+    {
+      "indexId": "sp100",
+      "companyId": "CVX"
+    },
+    {
+      "indexId": "sp100",
+      "companyId": "DE"
+    },
+    {
+      "indexId": "sp100",
+      "companyId": "DELL"
+    },
+    {
+      "indexId": "sp100",
+      "companyId": "DHR"
+    },
+    {
+      "indexId": "sp100",
+      "companyId": "DIS"
+    },
+    {
+      "indexId": "sp100",
+      "companyId": "DUK"
+    },
+    {
+      "indexId": "sp100",
+      "companyId": "EMR"
+    },
+    {
+      "indexId": "sp100",
+      "companyId": "FDX"
+    },
+    {
+      "indexId": "sp100",
+      "companyId": "GD"
+    },
+    {
+      "indexId": "sp100",
+      "companyId": "GE"
+    },
+    {
+      "indexId": "sp100",
+      "companyId": "GEV"
+    },
+    {
+      "indexId": "sp100",
+      "companyId": "GILD"
+    },
+    {
+      "indexId": "sp100",
+      "companyId": "GM"
+    },
+    {
+      "indexId": "sp100",
+      "companyId": "GOOG"
+    },
+    {
+      "indexId": "sp100",
+      "companyId": "GOOGL"
+    },
+    {
+      "indexId": "sp100",
+      "companyId": "GS"
+    },
+    {
+      "indexId": "sp100",
+      "companyId": "HD"
+    },
+    {
+      "indexId": "sp100",
+      "companyId": "IBM"
+    },
+    {
+      "indexId": "sp100",
+      "companyId": "INTC"
+    },
+    {
+      "indexId": "sp100",
+      "companyId": "INTU"
+    },
+    {
+      "indexId": "sp100",
+      "companyId": "ISRG"
+    },
+    {
+      "indexId": "sp100",
+      "companyId": "JNJ"
+    },
+    {
+      "indexId": "sp100",
+      "companyId": "JPM"
+    },
+    {
+      "indexId": "sp100",
+      "companyId": "KO"
+    },
+    {
+      "indexId": "sp100",
+      "companyId": "LIN"
+    },
+    {
+      "indexId": "sp100",
+      "companyId": "LLY"
+    },
+    {
+      "indexId": "sp100",
+      "companyId": "LMT"
+    },
+    {
+      "indexId": "sp100",
+      "companyId": "LOW"
+    },
+    {
+      "indexId": "sp100",
+      "companyId": "LRCX"
+    },
+    {
+      "indexId": "sp100",
+      "companyId": "MA"
+    },
+    {
+      "indexId": "sp100",
+      "companyId": "MCD"
+    },
+    {
+      "indexId": "sp100",
+      "companyId": "MDLZ"
+    },
+    {
+      "indexId": "sp100",
+      "companyId": "MDT"
+    },
+    {
+      "indexId": "sp100",
+      "companyId": "META"
+    },
+    {
+      "indexId": "sp100",
+      "companyId": "MMM"
+    },
+    {
+      "indexId": "sp100",
+      "companyId": "MO"
+    },
+    {
+      "indexId": "sp100",
+      "companyId": "MRK"
+    },
+    {
+      "indexId": "sp100",
+      "companyId": "MS"
+    },
+    {
+      "indexId": "sp100",
+      "companyId": "MSFT"
+    },
+    {
+      "indexId": "sp100",
+      "companyId": "MU"
+    },
+    {
+      "indexId": "sp100",
+      "companyId": "NEE"
+    },
+    {
+      "indexId": "sp100",
+      "companyId": "NFLX"
+    },
+    {
+      "indexId": "sp100",
+      "companyId": "NOW"
+    },
+    {
+      "indexId": "sp100",
+      "companyId": "NVDA"
+    },
+    {
+      "indexId": "sp100",
+      "companyId": "ORCL"
+    },
+    {
+      "indexId": "sp100",
+      "companyId": "PANW"
+    },
+    {
+      "indexId": "sp100",
+      "companyId": "PEP"
+    },
+    {
+      "indexId": "sp100",
+      "companyId": "PFE"
+    },
+    {
+      "indexId": "sp100",
+      "companyId": "PG"
+    },
+    {
+      "indexId": "sp100",
+      "companyId": "PLTR"
+    },
+    {
+      "indexId": "sp100",
+      "companyId": "PM"
+    },
+    {
+      "indexId": "sp100",
+      "companyId": "QCOM"
+    },
+    {
+      "indexId": "sp100",
+      "companyId": "RTX"
+    },
+    {
+      "indexId": "sp100",
+      "companyId": "SBUX"
+    },
+    {
+      "indexId": "sp100",
+      "companyId": "SCHW"
+    },
+    {
+      "indexId": "sp100",
+      "companyId": "SNDK"
+    },
+    {
+      "indexId": "sp100",
+      "companyId": "SO"
+    },
+    {
+      "indexId": "sp100",
+      "companyId": "T"
+    },
+    {
+      "indexId": "sp100",
+      "companyId": "TMO"
+    },
+    {
+      "indexId": "sp100",
+      "companyId": "TMUS"
+    },
+    {
+      "indexId": "sp100",
+      "companyId": "TSLA"
+    },
+    {
+      "indexId": "sp100",
+      "companyId": "TXN"
+    },
+    {
+      "indexId": "sp100",
+      "companyId": "UBER"
+    },
+    {
+      "indexId": "sp100",
+      "companyId": "UNH"
+    },
+    {
+      "indexId": "sp100",
+      "companyId": "UNP"
+    },
+    {
+      "indexId": "sp100",
+      "companyId": "UPS"
+    },
+    {
+      "indexId": "sp100",
+      "companyId": "USB"
+    },
+    {
+      "indexId": "sp100",
+      "companyId": "V"
+    },
+    {
+      "indexId": "sp100",
+      "companyId": "VZ"
+    },
+    {
+      "indexId": "sp100",
+      "companyId": "WFC"
+    },
+    {
+      "indexId": "sp100",
+      "companyId": "WMT"
+    },
+    {
+      "indexId": "sp100",
+      "companyId": "XOM"
+    },
+    {
+      "indexId": "ndx",
+      "companyId": "ADBE"
+    },
+    {
+      "indexId": "ndx",
+      "companyId": "AMD"
+    },
+    {
+      "indexId": "ndx",
+      "companyId": "ABNB"
+    },
+    {
+      "indexId": "ndx",
+      "companyId": "ALNY"
+    },
+    {
+      "indexId": "ndx",
+      "companyId": "GOOGL"
+    },
+    {
+      "indexId": "ndx",
+      "companyId": "GOOG"
+    },
+    {
+      "indexId": "ndx",
+      "companyId": "AMZN"
+    },
+    {
+      "indexId": "ndx",
+      "companyId": "AEP"
+    },
+    {
+      "indexId": "ndx",
+      "companyId": "AMGN"
+    },
+    {
+      "indexId": "ndx",
+      "companyId": "ADI"
+    },
+    {
+      "indexId": "ndx",
+      "companyId": "AAPL"
+    },
+    {
+      "indexId": "ndx",
+      "companyId": "AMAT"
+    },
+    {
+      "indexId": "ndx",
+      "companyId": "APP"
+    },
+    {
+      "indexId": "ndx",
+      "companyId": "ARM"
+    },
+    {
+      "indexId": "ndx",
+      "companyId": "ASML"
+    },
+    {
+      "indexId": "ndx",
+      "companyId": "ALAB"
+    },
+    {
+      "indexId": "ndx",
+      "companyId": "ADSK"
+    },
+    {
+      "indexId": "ndx",
+      "companyId": "ADP"
+    },
+    {
+      "indexId": "ndx",
+      "companyId": "AXON"
+    },
+    {
+      "indexId": "ndx",
+      "companyId": "BKR"
+    },
+    {
+      "indexId": "ndx",
+      "companyId": "BKNG"
+    },
+    {
+      "indexId": "ndx",
+      "companyId": "AVGO"
+    },
+    {
+      "indexId": "ndx",
+      "companyId": "CDNS"
+    },
+    {
+      "indexId": "ndx",
+      "companyId": "CTAS"
+    },
+    {
+      "indexId": "ndx",
+      "companyId": "CSCO"
+    },
+    {
+      "indexId": "ndx",
+      "companyId": "CCEP"
+    },
+    {
+      "indexId": "ndx",
+      "companyId": "CMCSA"
+    },
+    {
+      "indexId": "ndx",
+      "companyId": "CEG"
+    },
+    {
+      "indexId": "ndx",
+      "companyId": "CPRT"
+    },
+    {
+      "indexId": "ndx",
+      "companyId": "CRWV"
+    },
+    {
+      "indexId": "ndx",
+      "companyId": "COST"
+    },
+    {
+      "indexId": "ndx",
+      "companyId": "CRWD"
+    },
+    {
+      "indexId": "ndx",
+      "companyId": "CSX"
+    },
+    {
+      "indexId": "ndx",
+      "companyId": "DDOG"
+    },
+    {
+      "indexId": "ndx",
+      "companyId": "DXCM"
+    },
+    {
+      "indexId": "ndx",
+      "companyId": "FANG"
+    },
+    {
+      "indexId": "ndx",
+      "companyId": "DASH"
+    },
+    {
+      "indexId": "ndx",
+      "companyId": "EXC"
+    },
+    {
+      "indexId": "ndx",
+      "companyId": "FAST"
+    },
+    {
+      "indexId": "ndx",
+      "companyId": "FER"
+    },
+    {
+      "indexId": "ndx",
+      "companyId": "FTNT"
+    },
+    {
+      "indexId": "ndx",
+      "companyId": "GEHC"
+    },
+    {
+      "indexId": "ndx",
+      "companyId": "GILD"
+    },
+    {
+      "indexId": "ndx",
+      "companyId": "HONA"
+    },
+    {
+      "indexId": "ndx",
+      "companyId": "HON"
+    },
+    {
+      "indexId": "ndx",
+      "companyId": "IDXX"
+    },
+    {
+      "indexId": "ndx",
+      "companyId": "INTC"
+    },
+    {
+      "indexId": "ndx",
+      "companyId": "INTU"
+    },
+    {
+      "indexId": "ndx",
+      "companyId": "ISRG"
+    },
+    {
+      "indexId": "ndx",
+      "companyId": "KDP"
+    },
+    {
+      "indexId": "ndx",
+      "companyId": "KLAC"
+    },
+    {
+      "indexId": "ndx",
+      "companyId": "LRCX"
+    },
+    {
+      "indexId": "ndx",
+      "companyId": "LIN"
+    },
+    {
+      "indexId": "ndx",
+      "companyId": "LITE"
+    },
+    {
+      "indexId": "ndx",
+      "companyId": "MAR"
+    },
+    {
+      "indexId": "ndx",
+      "companyId": "MRVL"
+    },
+    {
+      "indexId": "ndx",
+      "companyId": "MELI"
+    },
+    {
+      "indexId": "ndx",
+      "companyId": "META"
+    },
+    {
+      "indexId": "ndx",
+      "companyId": "MCHP"
+    },
+    {
+      "indexId": "ndx",
+      "companyId": "MU"
+    },
+    {
+      "indexId": "ndx",
+      "companyId": "MSFT"
+    },
+    {
+      "indexId": "ndx",
+      "companyId": "MSTR"
+    },
+    {
+      "indexId": "ndx",
+      "companyId": "MRNA"
+    },
+    {
+      "indexId": "ndx",
+      "companyId": "MDLZ"
+    },
+    {
+      "indexId": "ndx",
+      "companyId": "MPWR"
+    },
+    {
+      "indexId": "ndx",
+      "companyId": "MNST"
+    },
+    {
+      "indexId": "ndx",
+      "companyId": "NBIS"
+    },
+    {
+      "indexId": "ndx",
+      "companyId": "NFLX"
+    },
+    {
+      "indexId": "ndx",
+      "companyId": "NVDA"
+    },
+    {
+      "indexId": "ndx",
+      "companyId": "NXPI"
+    },
+    {
+      "indexId": "ndx",
+      "companyId": "ORLY"
+    },
+    {
+      "indexId": "ndx",
+      "companyId": "ODFL"
+    },
+    {
+      "indexId": "ndx",
+      "companyId": "PCAR"
+    },
+    {
+      "indexId": "ndx",
+      "companyId": "PLTR"
+    },
+    {
+      "indexId": "ndx",
+      "companyId": "PANW"
+    },
+    {
+      "indexId": "ndx",
+      "companyId": "PAYX"
+    },
+    {
+      "indexId": "ndx",
+      "companyId": "REGN"
+    },
+    {
+      "indexId": "ndx",
+      "companyId": "RKLB"
+    },
+    {
+      "indexId": "ndx",
+      "companyId": "ROP"
+    },
+    {
+      "indexId": "ndx",
+      "companyId": "ROST"
+    },
+    {
+      "indexId": "ndx",
+      "companyId": "SNDK"
+    },
+    {
+      "indexId": "ndx",
+      "companyId": "STX"
+    },
+    {
+      "indexId": "ndx",
+      "companyId": "SHOP"
+    },
+    {
+      "indexId": "ndx",
+      "companyId": "SPCX"
+    },
+    {
+      "indexId": "ndx",
+      "companyId": "SBUX"
+    },
+    {
+      "indexId": "ndx",
+      "companyId": "SNPS"
+    },
+    {
+      "indexId": "ndx",
+      "companyId": "TMUS"
+    },
+    {
+      "indexId": "ndx",
+      "companyId": "TTWO"
+    },
+    {
+      "indexId": "ndx",
+      "companyId": "TER"
+    },
+    {
+      "indexId": "ndx",
+      "companyId": "TSLA"
+    },
+    {
+      "indexId": "ndx",
+      "companyId": "TXN"
+    },
+    {
+      "indexId": "ndx",
+      "companyId": "TRI"
+    },
+    {
+      "indexId": "ndx",
+      "companyId": "VRTX"
+    },
+    {
+      "indexId": "ndx",
+      "companyId": "WMT"
+    },
+    {
+      "indexId": "ndx",
+      "companyId": "WDC"
+    },
+    {
+      "indexId": "ndx",
+      "companyId": "WDAY"
+    },
+    {
+      "indexId": "ndx",
+      "companyId": "XEL"
+    },
+    {
+      "indexId": "ndx",
+      "companyId": "PYPL"
+    },
+    {
+      "indexId": "ndx",
+      "companyId": "PDD"
+    },
+    {
+      "indexId": "ndx",
+      "companyId": "PEP"
+    },
+    {
+      "indexId": "ndx",
+      "companyId": "QCOM"
+    }
+  ]
+}

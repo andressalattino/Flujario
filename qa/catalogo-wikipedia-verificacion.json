@@ -1,0 +1,29 @@
+{
+  "checkedAt": "2026-11-24T20:00:17.596Z",
+  "indices": [
+    {
+      "id": "ndx",
+      "checkedAt": "2026-11-24",
+      "source": "https://en.wikipedia.org/w/index.php?oldid=1381716526",
+      "sourceEdition": "2026-10-24"
+    },
+    {
+      "id": "sp100",
+      "checkedAt": "2026-11-24",
+      "source": "https://en.wikipedia.org/w/index.php?oldid=1385872457",
+      "sourceEdition": "2026-11-15"
+    }
+  ],
+  "counts": [
+    {
+      "id": "ndx",
+      "members": 101
+    },
+    {
+      "id": "sp100",
+      "members": 101
+    }
+  ],
+  "privateTablesUnchanged": 17,
+  "foreignKeysValid": true
+}
