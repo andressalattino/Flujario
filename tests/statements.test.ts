@@ -122,6 +122,48 @@ it("reintentos simultáneos producen un solo lote y un solo egreso", async () =>
   expect((await getSnapshot(db, "ana")).entries).toHaveLength(1);
   expect((await state()).batches).toHaveLength(1);
 });
+it("corrige la categoría de un gasto importado sin alterar el importe, la fecha ni el resumen original", async () => {
+  const input = bank();
+  await mutateStatements(db, "ana", input);
+  const [entry] = (await getSnapshot(db, "ana")).entries;
+  expect(entry?.imported).toBe(true);
+  const edit = {
+    intent: "edit-expense" as const,
+    requestKey: crypto.randomUUID(),
+    entryId: entry!.id,
+    amount: entry!.amountMinor,
+    currency: "ARS" as const,
+    date: entry!.date,
+    description: "Netflix",
+    category: "Suscripciones" as const,
+  };
+  await expect(performOperation(db, "ana", { ...edit, amount: 1 })).rejects.toThrow(
+    "gasto importado",
+  );
+  await expect(performOperation(db, "ana", { ...edit, date: "2026-11-10" })).rejects.toThrow(
+    "gasto importado",
+  );
+  await performOperation(db, "ana", edit);
+  await mutateStatements(db, "ana", input);
+  const after = await getSnapshot(db, "ana");
+  expect(after.entries).toHaveLength(1);
+  expect(after.entries[0]).toMatchObject({
+    description: "Netflix",
+    category: "Suscripciones",
+    amountMinor: 10000,
+  });
+  expect(
+    store.sqlite
+      .prepare("SELECT description, category, date, amount_minor FROM statement_rows")
+      .get(),
+  ).toEqual({
+    description: input.rows[0]!.description,
+    category: "Otros",
+    date: input.rows[0]!.date,
+    amount_minor: 10000,
+  });
+  await expect(mutateStatements(db, "ana", bank())).rejects.toMatchObject({ status: 409 });
+});
 it("una clave reutilizada con otro contenido se rechaza sin modificar movimientos", async () => {
   const input = bank();
   await mutateStatements(db, "ana", input);

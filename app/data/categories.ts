@@ -4,6 +4,7 @@ export const categories = [
   "Transporte",
   "Salud",
   "Servicios",
+  "Suscripciones",
   "Educación",
   "Trabajo",
   "Ropa",

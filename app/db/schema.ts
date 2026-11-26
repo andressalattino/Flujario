@@ -270,6 +270,38 @@ export const entries = sqliteTable(
     check("paid_is_expense", sql`${t.occurrenceId} IS NULL OR ${t.kind} = 'expense'`),
   ],
 );
+export const expenseEdits = sqliteTable(
+  "expense_edits",
+  {
+    id: text("id").primaryKey().notNull(),
+    userId: text("user_id").notNull(),
+    entryId: text("entry_id").notNull(),
+    currency: text("currency", { enum: currencies }).notNull(),
+    requestKey: text("request_key").notNull(),
+    payloadHash: text("payload_hash").notNull(),
+    previousAmountMinor: integer("previous_amount_cents").notNull(),
+    previousDescription: text("previous_description").notNull(),
+    previousCategory: text("previous_category").notNull(),
+    previousDate: text("previous_date").notNull(),
+    amountMinor: integer("amount_cents").notNull(),
+    description: text("description").notNull(),
+    category: text("category").notNull(),
+    date: text("date").notNull(),
+    createdAt: text("created_at").notNull(),
+  },
+  (t) => [
+    uniqueIndex("expense_edits_request").on(t.userId, t.requestKey),
+    index("expense_edits_entry").on(t.entryId, t.userId, t.currency),
+    foreignKey({
+      columns: [t.entryId, t.userId, t.currency],
+      foreignColumns: [entries.id, entries.userId, entries.currency],
+    }),
+    check(
+      "expense_edit_amounts",
+      sql`typeof(${t.amountMinor}) = 'integer' AND ${t.amountMinor} BETWEEN 1 AND 1000000000000 AND typeof(${t.previousAmountMinor}) = 'integer' AND ${t.previousAmountMinor} BETWEEN 1 AND 1000000000000`,
+    ),
+  ],
+);
 const statementCurrencyCheck = sql.raw(
   "currency IN (" + currencies.map((c) => "'" + c + "'").join(",") + ")",
 );

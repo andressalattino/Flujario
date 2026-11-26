@@ -1,7 +1,7 @@
 import type { ComponentProps, ReactNode } from "react";
 import { Wallet, ArrowUpRight, ArrowDownLeft, ArrowLeftRight } from "lucide-react";
 import { Input } from "../ui/input";
-import { entryDisplay, type Snapshot } from "~/domain/finance";
+import { entryDisplay, type Entry } from "~/domain/finance";
 import { formatMoney, type Currency } from "~/domain/money";
 import { EntryRate } from "./entry-rate";
 import { formatDate } from "~/domain/dates";
@@ -56,9 +56,11 @@ export function Empty({
 export function EntriesTable({
   entries,
   currency,
+  renderAction,
 }: {
-  entries: Snapshot["entries"];
+  entries: Entry[];
   currency: Currency;
+  renderAction?: (entry: Entry) => ReactNode;
 }) {
   if (!entries.length)
     return (
@@ -76,6 +78,7 @@ export function EntriesTable({
               <th>Categoría</th>
               <th>Fecha</th>
               <th className="text-right">Importe</th>
+              {renderAction && <th className="text-right">Acciones</th>}
             </tr>
           </thead>
           <tbody>
@@ -116,13 +119,14 @@ export function EntriesTable({
                     {formatMoney(display.amountMinor, display.currency)}
                     <small>{display.currency}</small>
                   </td>
+                  {renderAction && <td className="text-right">{renderAction(e)}</td>}
                 </tr>
               );
             })}
           </tbody>
         </table>
       </div>
-      <MobileEntries entries={entries} currency={currency} />
+      <MobileEntries entries={entries} currency={currency} renderAction={renderAction} />
     </>
   );
 }

@@ -8,10 +8,11 @@ import type { Snapshot } from "~/domain/finance";
 import { categories } from "~/data/categories";
 import { statementInstitutions, type StatementInstitution } from "~/data/statement-institutions";
 import { formatMoney, sumMinor, type Currency } from "~/domain/money";
-import { today } from "~/domain/dates";
+import { formatFullDate, isISODate, today } from "~/domain/dates";
 import {
   guessMapping,
   mapStatementGrid,
+  readStatementAmount,
   validateDraft,
   signedMoneyInput,
   type DraftRow,
@@ -33,6 +34,22 @@ import {
 import "~/statements.css";
 
 const endpoint = "/app/importaciones/datos";
+const movementKinds = {
+  expense: "Gasto",
+  income: "Ingreso",
+  internal: "Transferencia propia",
+  part: "Detalle",
+};
+function reviewAmount(row: DraftRow) {
+  try {
+    const value = readStatementAmount(row.amount, row.currency, "ar");
+    if (value <= 0) return "Importe para revisar";
+    return formatMoney(row.kind === "expense" ? -value : value, row.currency);
+  } catch {
+    return "Importe para revisar";
+  }
+}
+
 type SaveResult = { ok: boolean; error?: string; duplicateKeys?: string[]; ready?: boolean };
 async function jsonRequest<T = SaveResult>(url: string, options?: RequestInit): Promise<T> {
   const res = await fetch(url, { credentials: "same-origin", cache: "no-store", ...options });
@@ -49,7 +66,7 @@ async function jsonRequest<T = SaveResult>(url: string, options?: RequestInit): 
 }
 export default function StatementTools({
   snapshot,
-  currency,
+  currency: workspaceCurrency,
   preview,
 }: {
   snapshot: Snapshot;
@@ -65,10 +82,12 @@ export default function StatementTools({
   const [refresh, setRefresh] = useState(0);
   const [mode, setMode] = useState<"bank" | "card">("bank");
   const [target, setTarget] = useState("");
-  const [rows, setRows] = useState<DraftRow[]>([]),
+  const [draftRows, setRows] = useState<DraftRow[]>([]),
     [grids, setGrids] = useState<Grid[]>([]),
     [sheet, setSheet] = useState(0),
     [mapping, setMapping] = useState<Mapping | null>(null);
+  const [detectedCurrencies, setDetectedCurrencies] = useState<Currency[] | null>(null);
+  const [reviewCurrency, setReviewCurrency] = useState<Currency | null>(null);
   const [format, setFormat] = useState<StatementFormat>("csv");
   const [institution, setInstitution] = useState<StatementInstitution>("nacion");
   const [message, setMessage] = useState(""),
@@ -86,28 +105,35 @@ export default function StatementTools({
   const [group, setGroup] = useState<"day" | "month" | "quarter" | "year">("month"),
     [charts, setCharts] = useState(false);
   const fileRef = useRef<HTMLInputElement>(null),
+    optionsRef = useRef<HTMLDetailsElement>(null),
     abortRef = useRef<AbortController | null>(null),
-    requestRef = useRef({ fingerprint: "", key: "" });
+    requestRef = useRef(new Map<Currency, { fingerprint: string; key: string }>());
   const revalidator = useRevalidator();
   const asOf = preview ? today() : snapshot.asOf;
+  const automatic = detectedCurrencies !== null;
+  const currency = view === "import" && reviewCurrency ? reviewCurrency : workspaceCurrency;
+  const rows = automatic ? draftRows.filter((row) => row.currency === currency) : draftRows;
   const account = snapshot.accounts.find((a) => a.currency === currency);
   const openingDate = preview ? previewOpening : account?.openingDate;
-  const rangeKey = `${currency}|${from}|${to}|${refresh}`;
+  const rangeKey = `${view}|${currency}|${from}|${to}|${refresh}`;
   const dataReady = preview || (loaded === rangeKey && !loadError);
   useEffect(() => {
     abortRef.current?.abort();
     setRows([]);
     setGrids([]);
     setMapping(null);
+    setDetectedCurrencies(null);
+    setReviewCurrency(null);
     setReviewed(false);
     setServerDuplicates([]);
+    setPage(0);
     setTarget("");
     setError("");
     setMessage("");
     setPreviewOpening("");
     setOpening("");
-    requestRef.current = { fingerprint: "", key: "" };
-  }, [currency]);
+    requestRef.current.clear();
+  }, [workspaceCurrency]);
   useEffect(
     () => () => {
       abortRef.current?.abort();
@@ -115,7 +141,8 @@ export default function StatementTools({
     [],
   );
   useEffect(() => {
-    if (view === "closed" || preview || from > to || !from || !to) return;
+    if (view === "closed" || preview || (view === "analysis" && (from > to || !from || !to)))
+      return;
     const abort = new AbortController();
     setLoaded("");
     setLoadError("");
@@ -213,7 +240,11 @@ export default function StatementTools({
               ...r,
               ...patch,
               issue: undefined,
-              duplicateAcknowledged: patch.duplicateAcknowledged ?? false,
+              duplicateAcknowledged:
+                patch.duplicateAcknowledged ??
+                (patch.date === undefined && patch.kind === undefined && patch.amount === undefined
+                  ? r.duplicateAcknowledged
+                  : false),
             }
           : r,
       ),
@@ -221,8 +252,16 @@ export default function StatementTools({
     setReviewed(false);
     setError("");
   }
-  async function read() {
-    const file = fileRef.current?.files?.[0];
+  function selectReviewCurrency(next: Currency) {
+    setReviewCurrency(next);
+    setReviewed(false);
+    setServerDuplicates([]);
+    setPage(0);
+    setOpening("");
+    setPreviewOpening("");
+    setError("");
+  }
+  async function read(file = fileRef.current?.files?.[0], useOptions = true) {
     if (!file) {
       setError("Elegí un archivo primero.");
       return;
@@ -234,7 +273,12 @@ export default function StatementTools({
     setServerDuplicates([]);
     setGrids([]);
     setMapping(null);
+    setDetectedCurrencies(null);
+    setReviewCurrency(null);
     setReviewed(false);
+    setPage(0);
+    setOpening("");
+    abortRef.current?.abort();
     const controller = new AbortController();
     abortRef.current = controller;
     try {
@@ -242,24 +286,42 @@ export default function StatementTools({
       const result = await readStatementFile(file, {
         signal: controller.signal,
         progress: setMessage,
-        password,
-        ocr,
-        encoding,
+        password: useOptions ? password : undefined,
+        ocr: useOptions && ocr,
+        encoding: useOptions ? encoding : undefined,
+        accountStatement: mode === "bank",
       });
       if (controller.signal.aborted) return;
-      setGrids(result.grids);
-      setSheet(0);
-      setMapping(guessMapping(result.grids[0]!));
+      if (result.santander) {
+        const currencies = result.santander.map((batch) => batch.currency);
+        setDetectedCurrencies(currencies);
+        setRows(result.santander.flatMap((batch) => batch.rows));
+        setReviewCurrency(
+          result.santander.find((batch) => batch.currency === workspaceCurrency)?.currency ??
+            currencies[0] ??
+            null,
+        );
+        if (optionsRef.current) optionsRef.current.open = false;
+      } else {
+        setGrids(result.grids);
+        setSheet(0);
+        setMapping(guessMapping(result.grids[0]!));
+      }
       setFormat(result.format);
       setMessage(result.notice);
       setPassword("");
     } catch (e) {
-      if (!controller.signal.aborted)
+      if (!controller.signal.aborted) {
         setError(e instanceof Error ? e.message : "No pudimos leer el archivo.");
-      else setMessage("Lectura cancelada.");
+        setMessage("");
+        if (optionsRef.current && e instanceof Error && e.message.includes("PDF protegido"))
+          optionsRef.current.open = true;
+      } else if (abortRef.current === controller) setMessage("Lectura cancelada.");
     } finally {
-      setReading(false);
-      abortRef.current = null;
+      if (abortRef.current === controller) {
+        setReading(false);
+        abortRef.current = null;
+      }
     }
   }
   function mapRows() {
@@ -319,7 +381,7 @@ export default function StatementTools({
               : "Desglose guardado pendiente: revisá la diferencia antes de aplicarlo al análisis."
             : "Lote confirmado. Los históricos se conservaron sin modificar tu saldo.",
         );
-        requestRef.current = { fingerprint: "", key: "" };
+        requestRef.current.delete(mutation.currency);
       }
       setRefresh((n) => n + 1);
       revalidator.revalidate();
@@ -330,15 +392,22 @@ export default function StatementTools({
     }
   }
   function confirm() {
-    const base = { institution, format, currency, reviewed: true as const, rows: selected };
+    const base = {
+      institution: automatic ? ("santander" as const) : institution,
+      format,
+      currency,
+      reviewed: true as const,
+      rows: selected,
+    };
     const payload =
       mode === "card" && parent
         ? { intent: "breakdown" as const, ...base, target: parent.target }
         : { intent: "import" as const, ...base };
     const fingerprint = JSON.stringify(payload);
-    if (requestRef.current.fingerprint !== fingerprint)
-      requestRef.current = { fingerprint, key: crypto.randomUUID() };
-    void mutate({ ...payload, requestKey: requestRef.current.key });
+    const previous = requestRef.current.get(currency);
+    const requestKey = previous?.fingerprint === fingerprint ? previous.key : crypto.randomUUID();
+    requestRef.current.set(currency, { fingerprint, key: requestKey });
+    void mutate({ ...payload, requestKey });
   }
   function restoreBreakdown(key: string) {
     const p = targets.find((t) => t.key === key),
@@ -347,6 +416,8 @@ export default function StatementTools({
       );
     if (!b) return;
     setMode("card");
+    setDetectedCurrencies(null);
+    setReviewCurrency(null);
     setTarget(key);
     setRows(
       b.parts.map((r, i) => ({
@@ -425,67 +496,80 @@ export default function StatementTools({
                 confirmes.
               </p>
               <fieldset disabled={busy} className="statement-fieldset">
-                <div className="statement-options">
-                  <Select
-                    label="Qué querés leer"
-                    value={mode}
-                    onChange={(e) => {
-                      setMode(e.target.value as typeof mode);
-                      setRows([]);
-                      setReviewed(false);
-                    }}
-                    options={[
-                      ["bank", "Resumen de cuenta"],
-                      ["card", "Detalle de tarjeta: desglosar un pago"],
-                    ]}
-                  />
-                  <Select
-                    label="Banco o billetera de origen"
-                    value={institution}
-                    onChange={(e) => setInstitution(e.target.value as StatementInstitution)}
-                    options={statementInstitutions.map((s) => [s.id, s.name])}
-                  />
-                </div>
-                <p className="field-hint">
-                  Lectura asistida para estas entidades. Los diseños bancarios todavía requieren
-                  validación con muestras; no se crean cuentas por banco.
-                </p>
-                {mode === "bank" && (
-                  <div className="statement-cutoff">
-                    <h4>Primero, ubicá tu saldo inicial en el tiempo.</h4>
-                    <p>
-                      Tu saldo inicial en {currency} corresponde al <strong>inicio del día</strong>
-                      {openingDate ? ` ${openingDate}` : " que confirmes"}. Las filas anteriores
-                      serán históricas; desde ese día podrán cambiar tu saldo. No se modifica el
-                      importe inicial.
-                    </p>
+                <div className="statement-file">
+                  <label className="field">
+                    <span>Elegí tu resumen · PDF, CSV o Excel · hasta 10 MB</span>
+                    <input
+                      ref={fileRef}
+                      type="file"
+                      accept=".pdf,.csv,.xlsx,.xls"
+                      onChange={(e) => {
+                        const file = e.currentTarget.files?.[0];
+                        if (file) void read(file, false);
+                      }}
+                    />
+                  </label>
+                  <details ref={optionsRef}>
+                    <summary>Opciones de lectura</summary>
                     <div className="statement-options">
-                      <Field
-                        label={`Fecha del saldo inicial · ${currency}`}
-                        name="statement-opening"
-                        type="date"
-                        value={opening || openingDate || ""}
-                        max={asOf}
-                        onChange={(e) => setOpening(e.target.value)}
+                      <Select
+                        label="Qué querés leer"
+                        value={mode}
+                        onChange={(e) => {
+                          setMode(e.target.value as typeof mode);
+                          setRows([]);
+                          setGrids([]);
+                          setMapping(null);
+                          setDetectedCurrencies(null);
+                          setReviewCurrency(null);
+                          setReviewed(false);
+                          setMessage("");
+                          setError("");
+                        }}
+                        options={[
+                          ["bank", "Resumen de cuenta"],
+                          ["card", "Detalle de tarjeta: desglosar un pago"],
+                        ]}
                       />
-                      <Button
-                        variant="outline"
-                        disabled={!opening}
-                        onClick={() =>
-                          preview
-                            ? setPreviewOpening(opening)
-                            : void mutate({ intent: "opening-date", currency, date: opening })
-                        }
-                      >
-                        {openingDate ? "Confirmar fecha" : "Guardar fecha"}
-                      </Button>
+                      <Select
+                        label="Banco o billetera de origen"
+                        value={automatic ? "santander" : institution}
+                        disabled={automatic}
+                        onChange={(e) => setInstitution(e.target.value as StatementInstitution)}
+                        options={statementInstitutions.map((s) => [s.id, s.name])}
+                      />
+                      <Field
+                        label="Contraseña del PDF (si tiene)"
+                        name="pdf-local-password"
+                        type="password"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        autoComplete="off"
+                      />
+                      <Select
+                        label="Codificación del CSV"
+                        value={encoding}
+                        onChange={(e) => setEncoding(e.target.value)}
+                        options={[
+                          ["UTF-8", "UTF-8"],
+                          ["windows-1252", "Windows / ANSI"],
+                        ]}
+                      />
                     </div>
-                    <p className="field-hint">
-                      Después de importar esta moneda la fecha queda fija. Debe ser compatible con
-                      los movimientos ya registrados.
-                    </p>
-                  </div>
-                )}
+                    <label className="statement-check">
+                      <input
+                        type="checkbox"
+                        checked={ocr}
+                        onChange={(e) => setOcr(e.target.checked)}
+                      />
+                      Usar OCR para PDF escaneado (más lento, hasta 30 páginas)
+                    </label>
+                    <Button variant="outline" onClick={() => void read()}>
+                      <FileSearch />
+                      Leer con estas opciones
+                    </Button>
+                  </details>
+                </div>
                 {mode === "card" && (
                   <>
                     <Select
@@ -509,59 +593,34 @@ export default function StatementTools({
                     </p>
                   </>
                 )}
-                <div className="statement-file">
-                  <label className="field">
-                    <span>Archivo PDF, CSV o Excel · hasta 10 MB</span>
-                    <input
-                      ref={fileRef}
-                      type="file"
-                      accept=".pdf,.csv,.xlsx,.xls"
-                      onChange={() => {
-                        setRows([]);
-                        setGrids([]);
-                        setMapping(null);
-                        setReviewed(false);
-                        setError("");
-                      }}
-                    />
-                  </label>
-                  <div className="statement-options">
-                    <Field
-                      label="Contraseña del PDF (si tiene)"
-                      name="pdf-local-password"
-                      type="password"
-                      value={password}
-                      onChange={(e) => setPassword(e.target.value)}
-                      autoComplete="off"
-                    />
-                    <Select
-                      label="Codificación del CSV"
-                      value={encoding}
-                      onChange={(e) => setEncoding(e.target.value)}
-                      options={[
-                        ["UTF-8", "UTF-8"],
-                        ["windows-1252", "Windows / ANSI"],
-                      ]}
-                    />
-                  </div>
-                  <label className="statement-check">
-                    <input
-                      type="checkbox"
-                      checked={ocr}
-                      onChange={(e) => setOcr(e.target.checked)}
-                    />
-                    Usar OCR para PDF escaneado (más lento, hasta 30 páginas)
-                  </label>
-                  <Button variant="outline" onClick={() => void read()}>
-                    <FileSearch />
-                    Leer archivo en este navegador
-                  </Button>
-                </div>
               </fieldset>
               {reading && (
                 <Button variant="outline" onClick={() => abortRef.current?.abort()}>
                   Cancelar lectura
                 </Button>
+              )}
+              {!!detectedCurrencies?.length && (
+                <div
+                  className="statement-currencies"
+                  role="group"
+                  aria-label="Monedas del resumen de Santander"
+                >
+                  {detectedCurrencies.map((code) => {
+                    const remaining = draftRows.filter((row) => row.currency === code).length;
+                    return (
+                      <Button
+                        key={code}
+                        size="sm"
+                        variant={code === currency ? "default" : "outline"}
+                        aria-pressed={code === currency}
+                        disabled={busy}
+                        onClick={() => selectReviewCurrency(code)}
+                      >
+                        {code === "ARS" ? "Pesos" : "Dólares"} · {remaining || "Revisado"}
+                      </Button>
+                    );
+                  })}
+                </div>
               )}
               {mapping && grids[sheet] && (
                 <fieldset disabled={busy} className="statement-fieldset statement-mapping">
@@ -685,115 +744,166 @@ export default function StatementTools({
               )}
               {!!rows.length && (
                 <div className="statement-review">
-                  <h4>2. Revisá cada movimiento.</h4>
+                  <h4>{automatic ? "Revisá las categorías" : "2. Revisá cada movimiento."}</h4>
                   <p>
-                    Las filas sin fecha o importe válido permanecen visibles: corregilas o excluilas
-                    explícitamente. Una transferencia entre cuentas propias en la misma moneda no es
-                    ingreso ni gasto.
+                    {automatic
+                      ? "Revisá las categorías antes de importar. Podés cambiar «Otros» o marcar un movimiento como transferencia propia."
+                      : "Corregí o excluí las filas con errores. Una transferencia entre cuentas propias en la misma moneda no es ingreso ni gasto."}
                   </p>
-                  <div className="statement-actions">
-                    <Button
-                      size="sm"
-                      variant="outline"
-                      disabled={busy}
-                      onClick={() => {
-                        setRows((old) =>
-                          old.map((r, i) => ({ ...r, selected: i < MAX_CONFIRM_ROWS })),
-                        );
-                        setReviewed(false);
-                      }}
-                    >
-                      Seleccionar primeras 500
-                    </Button>
-                    <Button
-                      size="sm"
-                      variant="outline"
-                      disabled={busy}
-                      onClick={() => {
-                        setRows((old) => old.map((r) => ({ ...r, selected: false })));
-                        setReviewed(false);
-                      }}
-                    >
-                      Excluir todas
-                    </Button>
-                  </div>
+                  {(!automatic || rows.length > MAX_CONFIRM_ROWS) && (
+                    <div className="statement-actions">
+                      <Button
+                        size="sm"
+                        variant="outline"
+                        disabled={busy}
+                        onClick={() => {
+                          const keys = new Set(
+                            rows.slice(0, MAX_CONFIRM_ROWS).map((row) => row.key),
+                          );
+                          setRows((old) =>
+                            old.map((row) =>
+                              row.currency === currency
+                                ? { ...row, selected: keys.has(row.key) }
+                                : row,
+                            ),
+                          );
+                          setReviewed(false);
+                        }}
+                      >
+                        Seleccionar primeras 500
+                      </Button>
+                      <Button
+                        size="sm"
+                        variant="outline"
+                        disabled={busy}
+                        onClick={() => {
+                          setRows((old) =>
+                            old.map((row) =>
+                              row.currency === currency ? { ...row, selected: false } : row,
+                            ),
+                          );
+                          setReviewed(false);
+                        }}
+                      >
+                        Excluir todas
+                      </Button>
+                    </div>
+                  )}
                   <fieldset disabled={busy} className="statement-fieldset">
                     <div className="statement-rows">
                       {rows.slice(page * 20, page * 20 + 20).map((row, j) => {
                         const i = page * 20 + j;
                         const duplicate = duplicates.has(row.key);
+                        const categoryField = (
+                          <Select
+                            label="Categoría"
+                            value={row.category}
+                            onChange={(e) =>
+                              edit(row.key, { category: e.target.value as DraftRow["category"] })
+                            }
+                            options={categories.map((c) => [c, c])}
+                          />
+                        );
+                        const inclusion = (
+                          <label className="statement-check">
+                            <input
+                              type="checkbox"
+                              checked={row.selected}
+                              onChange={(e) => edit(row.key, { selected: e.target.checked })}
+                            />
+                            {automatic ? "Incluir este movimiento" : row.sourceRef}
+                          </label>
+                        );
+                        const MovementDetails = automatic ? "details" : "div";
                         return (
                           <div
                             className={`statement-row ${!row.selected ? "is-excluded" : ""}`}
                             key={row.key}
                           >
-                            <div className="statement-row-top">
-                              <label className="statement-check">
-                                <input
-                                  type="checkbox"
-                                  checked={row.selected}
-                                  onChange={(e) => edit(row.key, { selected: e.target.checked })}
-                                />
-                                {row.sourceRef}
-                              </label>
-                              <span>
-                                {mode === "card"
-                                  ? "Detalle sin nuevo egreso"
-                                  : openingDate && row.date < openingDate
-                                    ? "Histórico · no altera saldo"
-                                    : row.kind === "internal"
-                                      ? "Transferencia propia · no altera saldo"
-                                      : "Afecta tu saldo"}
-                              </span>
-                            </div>
-                            <div className="statement-row-fields">
-                              <Field
-                                label="Fecha"
-                                name={`${row.key}-date`}
-                                type="date"
-                                value={row.date}
-                                max={asOf}
-                                onChange={(e) => edit(row.key, { date: e.target.value })}
-                              />
-                              <Field
-                                label="Descripción"
-                                name={`${row.key}-desc`}
-                                value={row.description}
-                                maxLength={120}
-                                onChange={(e) => edit(row.key, { description: e.target.value })}
-                              />
-                              <Field
-                                label={`Importe · ${currency}`}
-                                name={`${row.key}-amount`}
-                                inputMode="decimal"
-                                value={row.amount}
-                                onChange={(e) => edit(row.key, { amount: e.target.value })}
-                              />
-                              {mode === "bank" && (
-                                <Select
-                                  label="Sentido"
-                                  value={row.kind}
-                                  onChange={(e) =>
-                                    edit(row.key, { kind: e.target.value as DraftRow["kind"] })
-                                  }
-                                  options={[
-                                    ["expense", "Gasto"],
-                                    ["income", "Ingreso"],
-                                    ["internal", "Transferencia propia"],
-                                  ]}
-                                />
+                            {automatic ? (
+                              <div className="statement-category-row">
+                                <div>
+                                  <strong>{row.description}</strong>
+                                  <p>
+                                    {isISODate(row.date)
+                                      ? formatFullDate(row.date)
+                                      : "Fecha para revisar"}{" "}
+                                    · {movementKinds[row.kind]}
+                                    {!row.selected
+                                      ? " · Excluido"
+                                      : openingDate && row.date < openingDate
+                                        ? " · Histórico"
+                                        : ""}
+                                  </p>
+                                </div>
+                                <strong className="statement-review-amount" data-kind={row.kind}>
+                                  {reviewAmount(row)}
+                                </strong>
+                                {categoryField}
+                              </div>
+                            ) : (
+                              <div className="statement-row-top">
+                                {inclusion}
+                                <span>
+                                  {mode === "card"
+                                    ? "Detalle sin nuevo egreso"
+                                    : openingDate && row.date < openingDate
+                                      ? "Histórico · no altera saldo"
+                                      : row.kind === "internal"
+                                        ? "Transferencia propia · no altera saldo"
+                                        : openingDate
+                                          ? "Afecta tu saldo"
+                                          : "Saldo pendiente de fecha inicial"}
+                                </span>
+                              </div>
+                            )}
+                            <MovementDetails>
+                              {automatic && (
+                                <>
+                                  <summary>Corregir movimiento</summary>
+                                  {inclusion}
+                                </>
                               )}
-                              <Select
-                                label="Categoría"
-                                value={row.category}
-                                onChange={(e) =>
-                                  edit(row.key, {
-                                    category: e.target.value as DraftRow["category"],
-                                  })
-                                }
-                                options={categories.map((c) => [c, c])}
-                              />
-                            </div>
+                              <div className="statement-row-fields">
+                                <Field
+                                  label="Fecha"
+                                  name={`${row.key}-date`}
+                                  type="date"
+                                  value={row.date}
+                                  max={asOf}
+                                  onChange={(e) => edit(row.key, { date: e.target.value })}
+                                />
+                                <Field
+                                  label="Descripción"
+                                  name={`${row.key}-desc`}
+                                  value={row.description}
+                                  maxLength={120}
+                                  onChange={(e) => edit(row.key, { description: e.target.value })}
+                                />
+                                <Field
+                                  label={`Importe · ${currency}`}
+                                  name={`${row.key}-amount`}
+                                  inputMode="decimal"
+                                  value={row.amount}
+                                  onChange={(e) => edit(row.key, { amount: e.target.value })}
+                                />
+                                {mode === "bank" && (
+                                  <Select
+                                    label="Sentido"
+                                    value={row.kind}
+                                    onChange={(e) =>
+                                      edit(row.key, { kind: e.target.value as DraftRow["kind"] })
+                                    }
+                                    options={[
+                                      ["expense", movementKinds.expense],
+                                      ["income", movementKinds.income],
+                                      ["internal", movementKinds.internal],
+                                    ]}
+                                  />
+                                )}
+                                {!automatic && categoryField}
+                              </div>
+                            </MovementDetails>
                             {row.selected && results[i]?.error && (
                               <p className="form-error">{results[i]?.error}</p>
                             )}
@@ -838,19 +948,25 @@ export default function StatementTools({
                   </div>
                   <div className="statement-confirm">
                     <p>
-                      <strong>{selectedCount} filas seleccionadas</strong> · {invalid} para corregir
+                      <strong>{selectedCount} filas seleccionadas</strong>
+                      {invalid > 0 ? ` · ${invalid} para corregir` : ""}
                       {mode === "bank" ? ` · ${unacknowledged} coincidencias sin revisar` : ""}
                     </p>
                     {mode === "bank" ? (
                       <p>
-                        {selected.filter((r) => r.kind === "income").length} ingresos ·{" "}
-                        {selected.filter((r) => r.kind === "expense").length} gastos ·{" "}
+                        {rows.filter((r) => r.selected && r.kind === "income").length} ingresos ·{" "}
+                        {rows.filter((r) => r.selected && r.kind === "expense").length} gastos ·{" "}
                         {
-                          selected.filter(
-                            (r) => openingDate && r.date < openingDate && r.kind !== "internal",
+                          rows.filter(
+                            (r) =>
+                              r.selected &&
+                              openingDate &&
+                              r.date < openingDate &&
+                              r.kind !== "internal",
                           ).length
                         }{" "}
-                        históricos · {selected.filter((r) => r.kind === "internal").length}{" "}
+                        históricos ·{" "}
+                        {rows.filter((r) => r.selected && r.kind === "internal").length}{" "}
                         transferencias propias.
                       </p>
                     ) : (
@@ -868,7 +984,7 @@ export default function StatementTools({
                         )}
                       </p>
                     )}
-                    {mode === "bank" && openingDate && (
+                    {mode === "bank" && openingDate && !invalid && (
                       <p>
                         Desde {openingDate}: ingresos {formatMoney(cashIncome, currency)} · egresos{" "}
                         {formatMoney(cashExpense, currency)}. Efecto en el saldo:{" "}
@@ -883,21 +999,55 @@ export default function StatementTools({
                         Confirmá hasta 500 filas por lote; las restantes quedan en revisión.
                       </p>
                     )}
-                    <label className="statement-check">
-                      <input
-                        type="checkbox"
-                        checked={reviewed}
-                        disabled={busy}
-                        onChange={(e) => setReviewed(e.target.checked)}
-                      />
-                      Revisé fechas, moneda, importes, categorías y las filas excluidas.
-                    </label>
+                    {mode === "bank" && (!automatic || (!preview && !openingDate)) && (
+                      <details className="statement-cutoff" open={!openingDate}>
+                        <summary>Fecha del saldo inicial · {currency}</summary>
+                        <p>
+                          Elegí el día al que corresponde tu saldo inicial en Flujario. Los
+                          movimientos anteriores quedan en el historial y los de ese día en adelante
+                          pueden cambiar tu saldo.
+                        </p>
+                        <div className="statement-options">
+                          <Field
+                            label={`Fecha del saldo inicial · ${currency}`}
+                            name="statement-opening"
+                            type="date"
+                            value={opening || openingDate || ""}
+                            max={asOf}
+                            disabled={busy}
+                            onChange={(e) => setOpening(e.target.value)}
+                          />
+                          <Button
+                            variant="outline"
+                            disabled={!opening || busy}
+                            onClick={() =>
+                              preview
+                                ? setPreviewOpening(opening)
+                                : void mutate({ intent: "opening-date", currency, date: opening })
+                            }
+                          >
+                            Guardar fecha
+                          </Button>
+                        </div>
+                      </details>
+                    )}
+                    {!automatic && (
+                      <label className="statement-check">
+                        <input
+                          type="checkbox"
+                          checked={reviewed}
+                          disabled={busy}
+                          onChange={(e) => setReviewed(e.target.checked)}
+                        />
+                        Revisé fechas, moneda, importes, categorías y las filas excluidas.
+                      </label>
+                    )}
                     <Button
                       disabled={
                         preview ||
                         busy ||
                         !dataReady ||
-                        !reviewed ||
+                        (!automatic && !reviewed) ||
                         !selected.length ||
                         !!invalid ||
                         total === null ||
@@ -910,7 +1060,9 @@ export default function StatementTools({
                         ? "Guardando…"
                         : mode === "card"
                           ? "Guardar desglose del pago"
-                          : "Confirmar movimientos"}
+                          : automatic
+                            ? `Confirmar categorías e importar ${currency}`
+                            : "Confirmar movimientos"}
                     </Button>
                   </div>
                 </div>

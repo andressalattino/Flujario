@@ -9,6 +9,18 @@ const date = z.string().refine(isISODate, "Ingresá una fecha válida.");
 const requestKey = z.uuid("La operación necesita un identificador válido. Recargá la página.");
 const futureAmount = z.enum(["unchanged", "use", "clear"]).default("unchanged");
 const occurrenceId = z.string().min(1).max(150);
+const entryFields = {
+  currency: currencySchema,
+  amount: moneyText,
+  description: z
+    .string()
+    .trim()
+    .min(2, "Escribí una descripción de al menos 2 caracteres.")
+    .max(120),
+  category: categorySchema,
+  date,
+  requestKey,
+};
 const inputSchema = z.discriminatedUnion("intent", [
   z.object({
     intent: z.literal("dismiss-payment-notices"),
@@ -32,16 +44,12 @@ const inputSchema = z.discriminatedUnion("intent", [
   z.object({
     intent: z.literal("entry"),
     kind: z.enum(["income", "expense"]),
-    currency: currencySchema,
-    amount: moneyText,
-    description: z
-      .string()
-      .trim()
-      .min(2, "Escribí una descripción de al menos 2 caracteres.")
-      .max(120),
-    category: categorySchema,
-    date,
-    requestKey,
+    ...entryFields,
+  }),
+  z.object({
+    intent: z.literal("edit-expense"),
+    entryId: z.string().min(1).max(150),
+    ...entryFields,
   }),
   z.object({
     intent: z.literal("payment"),
@@ -110,6 +118,7 @@ export const operationSchema = inputSchema.transform((value, ctx) => {
     case "add-currency":
       return { ...value, opening: money(value.opening, value.currency, ctx, "opening", false) };
     case "entry":
+    case "edit-expense":
     case "pay":
       return { ...value, amount: money(value.amount, value.currency, ctx, "amount") };
     case "payment":

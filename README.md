@@ -137,7 +137,7 @@ Base local funcional y comprobada. Antes de usarla como producto público quedan
 
 1. Configurar y probar una instancia real de Clerk y D1 remota.
 2. Elegir el proveedor de acciones y confirmar permisos de las fuentes de Noticias ya configuradas, con cobertura, coste y condiciones de uso. DolarApi ya está aprobado para divisas.
-3. Diseñar corrección de movimientos mediante reversión y edición/cancelación de recurrencias. Esta base conserva los movimientos registrados y no implementa borrado ni edición de importes pagados.
+3. Diseñar correcciones de pagos registrados y cancelación de recurrencias. Los gastos manuales y los importados se corrigen desde **Movimientos → Editar**, con historial.
 4. Diseñar compras en cuotas y reglas específicas de impuestos. Los importes variables de obligaciones ya se pueden cargar por vencimiento; no se calculan impuestos automáticamente.
 5. Añadir paginación, trabajo por lotes para grandes cantidades de reglas, monitoreo y pruebas de carga antes de escalar.
 6. Definir política de privacidad, retención/exportación y cierre de cuenta, según el alcance real del producto.
@@ -196,7 +196,7 @@ Claro/Oscuro/Sistema se aplica a toda la web y se guarda en este navegador. El s
 
 ## Importar resúmenes y crear gráficos
 
-En **Movimientos → Importar resumen** se leen CSV, XLSX, XLS y PDF digitales. La opción OCR usa Tesseract local para PDF escaneados. El archivo original y la contraseña no se suben; sólo se envían movimientos revisados. No usa una API de IA ni almacenamiento R2. Es lectura asistida: se eligen columnas, sentido y separadores; cada fecha, importe y categoría se puede corregir o excluir antes de confirmar. Los ocho bancos/billeteras son procedencia, no adaptadores bancarios certificados.
+En **Movimientos → Importar resumen** se leen CSV, XLSX, XLS y PDF digitales. Al elegir un PDF de Santander con el formato de cajas de ahorro verificado, Flujario abre la revisión de categorías directamente. Usa el signo del movimiento y comprueba el saldo de cada fila y el cierre. Si la descripción no da una categoría clara, propone **Otros**. Las categorías se pueden corregir antes de confirmar. Pesos y dólares se confirman por separado. Para los demás formatos está disponible la lectura asistida. **Opciones de lectura** permite configurar contraseña, OCR para escaneos o codificación de CSV. El archivo original y su contraseña se procesan en el navegador. Sólo se envían las filas confirmadas.
 
 Antes de importar, confirmá la fecha del saldo inicial de esa moneda: corresponde al **inicio de ese día**. Las filas anteriores se guardan para análisis sin tocar el saldo. Desde esa fecha, ingresos/egresos confirmados sí lo modifican. La fecha debe respetar los movimientos existentes y queda fija al utilizarse. Las coincidencias por día, moneda, importe y sentido requieren revisión; repetir el mismo envío no duplica movimientos.
 
@@ -204,7 +204,7 @@ Para una tarjeta, elegí «Detalle de tarjeta» y su pago ya registrado. Las com
 
 **Ver análisis** permite elegir fechas, moneda y agrupación diaria, mensual, trimestral o anual. El resultado incluye los históricos y excluye transferencias/cambios de moneda; no representa el saldo total ni garantiza cobertura de todas las cuentas. «Crear gráficos» muestra categorías de gastos e ingresos/egresos por período con los mismos enteros del análisis.
 
-Límites: 10 MB, 30 páginas PDF, 2.000 filas de revisión y 500 por confirmación. Las restantes permanecen para otro lote. Los archivos corruptos, las columnas desplazadas, las monedas mezcladas, las fórmulas detectadas y los errores OCR requieren revisión; no se completan importes por inferencia. No hay compatibilidad verificada con plantillas reales de los ocho bancos todavía. La revisión visual del nuevo flujo quedó pendiente por una interrupción de Computer Use.
+Límites: 10 MB, 30 páginas PDF, 2.000 filas de revisión y 500 por confirmación. Las restantes permanecen para otro lote. Los archivos corruptos, las columnas desplazadas, las monedas mezcladas en el lector manual, las fórmulas detectadas y los errores OCR requieren revisión. La detección automática se verificó con el formato digital de cajas de ahorro de Santander.
 
 `npm install`, `npm run dev` y `npm run build` preparan los recursos OCR/PDF locales mediante `tools/prepare-statement-assets.mjs`. Si se instala con `--ignore-scripts`, ejecutar `npm run assets:statements` antes de usar OCR. Son archivos públicos de las bibliotecas, sin documentos del usuario. Las migraciones aditivas `0007_statement_imports.sql` y `0008_steady_spirit.sql` se aplicaron sólo localmente, con copia previa y comparación de las tablas anteriores. Prueba D1 aislada: `node qa/verificar-importaciones-d1.mjs`; prueba del motor OCR con imagen sintética: `node qa/verificar-ocr-local.mjs`.
 

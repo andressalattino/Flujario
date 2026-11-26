@@ -182,6 +182,39 @@
   width: 100%;
   min-width: 0;
 }
+.statement-currencies {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.statement-category-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(135px, 190px);
+  align-items: center;
+  gap: 14px;
+  overflow-wrap: anywhere;
+}
+.statement-category-row .field {
+  min-width: 0;
+}
+.statement-review-amount {
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+.statement-review-amount[data-kind="income"] {
+  color: var(--income-ink);
+}
+.statement-review-amount[data-kind="expense"] {
+  color: var(--expense-ink);
+}
+@media (max-width: 700px) {
+  .statement-category-row {
+    grid-template-columns: minmax(0, 1fr) auto;
+  }
+  .statement-category-row .field {
+    grid-column: 1 / -1;
+  }
+}
 .statement-pagination {
   margin-top: 18px;
   font-size: 12px;

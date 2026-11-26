@@ -1,12 +1,15 @@
 import { cloudflare } from "@cloudflare/vite-plugin";
 import { reactRouter } from "@react-router/dev/vite";
 import tailwindcss from "@tailwindcss/vite";
-import { defineConfig } from "vite";
+import { defineConfig, loadEnv } from "vite";
 import { fileURLToPath } from "node:url";
 import { localCatalogPlugin, localNewsPlugin } from "./tools/local-schedules-plugin.ts";
 
-export default defineConfig(({ command }) => {
-  const localAI = command === "serve" && process.env.FLUJARIO_LOCAL_AI === "true";
+export default defineConfig(({ command, mode }) => {
+  const localAI =
+    command === "serve" &&
+    (process.env.FLUJARIO_LOCAL_AI ??
+      loadEnv(mode, process.cwd(), "AI_ALLOW_LOCAL").AI_ALLOW_LOCAL) === "true";
   return {
     plugins: [
       // El desarrollo local no debe abrir conexiones remotas de IA por defecto.

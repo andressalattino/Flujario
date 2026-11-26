@@ -90,7 +90,9 @@ export async function action(args: Route.ActionArgs) {
             ? "Cambio registrado. Tus dos saldos están actualizados."
             : parsed.data.intent === "add-currency"
               ? "Moneda agregada. Su saldo se mantiene por separado."
-              : null,
+              : parsed.data.intent === "edit-expense"
+                ? "Gasto actualizado. Los cambios quedaron en el historial."
+                : null,
       nextCurrency: parsed.data.intent === "add-currency" ? parsed.data.currency : null,
     };
   } catch (error) {

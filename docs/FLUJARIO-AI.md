@@ -150,7 +150,7 @@ npm run deploy
 
 Local conserva `AI_ALLOW_LOCAL=false` y Vite deshabilita bindings remotos y omite `AI` sólo durante desarrollo. Workers AI no tiene simulador local: `remote:false` en el binding no permite simularlo y podía impedir iniciar Vite. La compilación conserva el binding con `remote:true` para producción. Estadísticas privadas funcionan con Clerk/D1 local; la vista previa sólo usa ejemplos.
 
-Para probar desde el panel local, usar `FLUJARIO_LOCAL_AI=true` en el entorno del proceso de Vite y `AI_ALLOW_LOCAL=true` en `.env.local`, con la cuenta Cloudflare autenticada. El primero conecta el binding remoto y el segundo permite al backend usarlo en desarrollo. Entrar al panel con una sesión de Flujario. Las preguntas libres consumen parte de la asignación de Cloudflare. [Límites de Workers AI](https://developers.cloudflare.com/workers-ai/platform/limits/). [API del plugin Vite](https://developers.cloudflare.com/workers/vite-plugin/reference/api/).
+Para usar preguntas libres desde el panel local, poner `AI_ALLOW_LOCAL=true` en `.env.local` y arrancar con `npm run dev`, con la cuenta Cloudflare autenticada. Vite lee esa opción al arrancar para conectar el binding remoto y el servidor la comprueba para permitir inferencias en desarrollo. Si el proceso ya define `FLUJARIO_LOCAL_AI`, ese valor controla la conexión de Vite. Entrar al panel con una sesión de Flujario. Las preguntas libres consumen parte de la asignación de Cloudflare. [Límites de Workers AI](https://developers.cloudflare.com/workers-ai/platform/limits/). [API del plugin Vite](https://developers.cloudflare.com/workers/vite-plugin/reference/api/).
 
 ## Verificar y aprender
 

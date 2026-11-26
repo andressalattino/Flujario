@@ -1,18 +1,29 @@
 import { ocrTableRows, type Grid } from "~/domain/statement-reading";
 import {
+  readSantanderStatement,
+  type PdfTextLine,
+  type SantanderBatch,
+} from "~/domain/statement-santander";
+import {
   MAX_STATEMENT_BYTES,
   MAX_PDF_PAGES,
   MAX_STATEMENT_ROWS,
   type StatementFormat,
 } from "~/domain/statements";
 
-type ReadResult = { grids: Grid[]; format: StatementFormat; notice: string };
+type ReadResult = {
+  grids: Grid[];
+  format: StatementFormat;
+  notice: string;
+  santander?: SantanderBatch[];
+};
 type Options = {
   signal: AbortSignal;
   progress: (message: string) => void;
   password?: string;
   ocr?: boolean;
   encoding?: string;
+  accountStatement?: boolean;
 };
 function check(signal: AbortSignal) {
   if (signal.aborted) throw new DOMException("Lectura cancelada.", "AbortError");
@@ -191,6 +202,7 @@ export async function readStatementFile(file: File, options: Options): Promise<R
     if (doc.numPages > MAX_PDF_PAGES)
       throw new Error("El PDF supera 30 páginas. Exportá un período más corto.");
     const rows: string[][] = [];
+    const textPages: PdfTextLine[][] = [];
     for (let n = 1; n <= doc.numPages; n++) {
       check(options.signal);
       options.progress(`Leyendo página ${n} de ${doc.numPages}…`);
@@ -236,7 +248,7 @@ export async function readStatementFile(file: File, options: Options): Promise<R
         }
       } else {
         const content = await page.getTextContent();
-        const lines: { y: number; items: { x: number; width: number; text: string }[] }[] = [];
+        const lines: PdfTextLine[] = [];
         for (const item of content.items)
           if ("str" in item && item.str.trim()) {
             const y = item.transform[5];
@@ -247,7 +259,9 @@ export async function readStatementFile(file: File, options: Options): Promise<R
             }
             line.items.push({ x: item.transform[4], width: item.width, text: item.str });
           }
-        for (const l of lines.sort((a, b) => b.y - a.y)) {
+        lines.sort((a, b) => b.y - a.y);
+        if (options.accountStatement) textPages.push(lines);
+        for (const l of lines) {
           const cells: string[] = [];
           let lastEnd = -Infinity;
           for (const i of l.items.sort((a, b) => a.x - b.x)) {
@@ -261,6 +275,17 @@ export async function readStatementFile(file: File, options: Options): Promise<R
       page.cleanup();
     }
     check(options.signal);
+    const santander = options.accountStatement ? readSantanderStatement(textPages) : undefined;
+    if (santander) {
+      return {
+        grids: [],
+        format: "pdf-text",
+        notice: santander.length
+          ? "Resumen de Santander leído."
+          : "El resumen de Santander no tiene movimientos.",
+        santander,
+      };
+    }
     return {
       grids: gridsChecked([{ name: "PDF", rows }]),
       format: options.ocr ? "pdf-ocr" : "pdf-text",

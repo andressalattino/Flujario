@@ -307,3 +307,9 @@ El usuario confirmó que ya tiene una cuenta Cloudflare. Se comprobó mediante `
 Sección independiente con categoría de mayor y menor gasto, período de mayor gasto y mejores y peores resultados. El resultado es ingresos menos egresos. La vista inicial abarca el mes en curso y los once anteriores, hasta la fecha argentina de la consulta. Hay fechas personalizadas y agrupación por mes, trimestre o año. Cada informe trabaja en una moneda. Los gráficos muestran gastos por categoría, ingresos frente a egresos y evolución del resultado, con importes exactos en una tabla.
 
 El cálculo comparte `statementAnalysis` con el importador. Incluye históricos confirmados, excluye transferencias propias, cambios de moneda y obligaciones impagas, y sólo usa un desglose de tarjeta para categorizar si concilia con el pago. El ranking de menor gasto usa categorías con egreso neto positivo. Los períodos sin registros no compiten y se informan los empates. El servidor verifica al dueño en el loader de Workspace y consulta sus movimientos, históricos y desgloses del rango en una sola lectura de D1. El cálculo no llama a IA ni requiere migraciones.
+
+## Edición de gastos — 26/11/2026
+
+Desde Movimientos se pueden corregir la descripción, la categoría, el importe y la fecha de un gasto manual. Para gastos importados se habilitan descripción y categoría. El resumen bancario conserva sus filas originales y los importes y fechas siguen conciliando con ellas. La moneda identifica el saldo, y el flujo de pagos registrados conserva su regla de edición propia.
+
+Se conserva el identificador del gasto para que el saldo y las estadísticas usen un solo movimiento. Un batch de D1 registra los valores anteriores y nuevos en `expense_edits` y actualiza el gasto en la misma operación. La clave de envío evita que un reintento antiguo vuelva a aplicar una modificación. El servidor verifica dueño, origen, tipo de movimiento y fecha del saldo inicial.

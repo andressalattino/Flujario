@@ -1,4 +1,4 @@
-import { and, eq, desc, sql } from "drizzle-orm";
+import { and, eq, desc, getTableColumns, sql } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/d1";
 import * as schema from "./schema";
 import { today, addMonthsFromAnchor, type Frequency } from "../domain/dates";
@@ -42,6 +42,10 @@ function samePayload(existing: { payloadHash: string } | undefined, hash: string
     );
   return true;
 }
+const importedEntry = sql<boolean>`EXISTS (
+  SELECT 1 FROM statement_rows r WHERE r.entry_id = entries.id AND r.user_id = entries.user_id
+)`.mapWith(Boolean);
+
 export async function getSnapshot(db: Db, userId: string): Promise<Snapshot> {
   const asOf = today();
   // Una sola lectura transaccional evita combinar el saldo de antes de un pago
@@ -50,7 +54,7 @@ export async function getSnapshot(db: Db, userId: string): Promise<Snapshot> {
     await db.batch([
       db.select().from(schema.accounts).where(eq(schema.accounts.userId, userId)),
       db
-        .select()
+        .select({ ...getTableColumns(schema.entries), imported: importedEntry })
         .from(schema.entries)
         .where(eq(schema.entries.userId, userId))
         .orderBy(desc(schema.entries.date), desc(schema.entries.createdAt)),
@@ -300,6 +304,10 @@ async function applyOperation(db: Db, userId: string, operation: Operation): Pro
     return;
   }
   const hash = await payloadHash(operation);
+  if (operation.intent === "edit-expense") {
+    await editExpense(db, userId, operation, hash, now);
+    return;
+  }
   if (operation.intent === "payment") {
     const existing = await db
       .select()
@@ -456,6 +464,91 @@ async function applyOperation(db: Db, userId: string, operation: Operation): Pro
     payloadHash: hash,
     createdAt: new Date().toISOString(),
   });
+}
+
+async function editExpense(
+  db: Db,
+  userId: string,
+  operation: Extract<Operation, { intent: "edit-expense" }>,
+  hash: string,
+  now: string,
+) {
+  const { entryId, currency, amount, description, category, date, requestKey } = operation;
+  const receipt = () =>
+    db
+      .select({ payloadHash: schema.expenseEdits.payloadHash })
+      .from(schema.expenseEdits)
+      .where(
+        and(eq(schema.expenseEdits.userId, userId), eq(schema.expenseEdits.requestKey, requestKey)),
+      )
+      .get();
+  if (samePayload(await receipt(), hash)) return;
+  if (date > now) throw new OperationError("La fecha del gasto no puede ser futura.");
+
+  const editId = crypto.randomUUID();
+  const target = and(
+    eq(schema.entries.id, entryId),
+    eq(schema.entries.userId, userId),
+    eq(schema.entries.currency, currency),
+    eq(schema.entries.kind, "expense"),
+  );
+  // El historial lee los valores anteriores dentro del mismo batch que actualiza el gasto.
+  const claim = db
+    .insert(schema.expenseEdits)
+    .select(
+      sql`
+    SELECT ${editId}, e.user_id, e.id, e.currency, ${requestKey}, ${hash},
+      e.amount_cents, e.description, e.category, e.date,
+      ${amount}, ${description}, ${category}, ${date}, ${new Date().toISOString()}
+    FROM entries e JOIN accounts a ON a.id = e.account_id AND a.user_id = e.user_id
+    WHERE e.id = ${entryId} AND e.user_id = ${userId} AND e.currency = ${currency}
+      AND e.kind = 'expense' AND e.occurrence_id IS NULL
+      AND (a.opening_date IS NULL OR a.opening_date <= ${date})
+      AND ((e.amount_cents = ${amount} AND e.date = ${date}) OR NOT EXISTS (
+        SELECT 1 FROM statement_rows r WHERE r.entry_id = e.id AND r.user_id = e.user_id
+      ))
+      AND (SELECT COALESCE(SUM(other.amount_cents), 0) FROM entries other
+        WHERE other.user_id = e.user_id AND other.currency = e.currency
+          AND other.kind = 'expense' AND other.id <> e.id) <= ${Number.MAX_SAFE_INTEGER - amount}
+  `,
+    )
+    .onConflictDoNothing({ target: [schema.expenseEdits.userId, schema.expenseEdits.requestKey] })
+    .returning({ id: schema.expenseEdits.id });
+  const [claimed] = await db.batch([
+    claim,
+    db
+      .update(schema.entries)
+      .set({ amountMinor: amount, description, category, date })
+      .where(and(target, sql`EXISTS (SELECT 1 FROM expense_edits WHERE id = ${editId})`)),
+  ]);
+  if (claimed.length || samePayload(await receipt(), hash)) return;
+
+  const entry = await db
+    .select({
+      occurrenceId: schema.entries.occurrenceId,
+      imported: importedEntry,
+      amountMinor: schema.entries.amountMinor,
+      date: schema.entries.date,
+      openingDate: schema.accounts.openingDate,
+    })
+    .from(schema.entries)
+    .innerJoin(
+      schema.accounts,
+      and(
+        eq(schema.accounts.id, schema.entries.accountId),
+        eq(schema.accounts.userId, schema.entries.userId),
+      ),
+    )
+    .where(target)
+    .get();
+  if (!entry) throw new OperationError("No encontramos ese gasto en tu cuenta.", 404);
+  if (entry.occurrenceId)
+    throw new OperationError("Este gasto corresponde a un pago registrado.", 409);
+  if (entry.imported && (entry.amountMinor !== amount || entry.date !== date))
+    throw new OperationError("En un gasto importado podés corregir la descripción y la categoría.");
+  if (entry.openingDate && date < entry.openingDate)
+    throw new OperationError("La fecha del gasto es anterior al saldo inicial.");
+  throw new OperationError("El total de gastos supera el límite permitido.");
 }
 
 async function mutatePayment(

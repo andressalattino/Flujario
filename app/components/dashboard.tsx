@@ -185,17 +185,24 @@ export function Dashboard({
   }).format(new Date(`${snapshot.asOf}T12:00:00Z`));
   const modalCopy =
     modal && typeof modal === "object"
-      ? modal.kind === "pay"
+      ? modal.kind === "edit-expense"
         ? {
-            title: "Registrar un pago.",
-            description:
-              "Confirmá cuánto pagaste. Flujario registra el gasto y marca este vencimiento como pagado; no mueve dinero.",
+            title: "Editar gasto",
+            description: modal.expense.imported
+              ? "Podés corregir la descripción y la categoría. El importe y la fecha vienen del resumen."
+              : "Corregí los datos del gasto. Flujario conserva los valores anteriores en el historial.",
           }
-        : {
-            title: "Editar el importe.",
-            description:
-              "Ajustá el monto previsto de este vencimiento y elegí qué hacer con los siguientes.",
-          }
+        : modal.kind === "pay"
+          ? {
+              title: "Registrar un pago.",
+              description:
+                "Confirmá cuánto pagaste. Flujario registra el gasto y marca este vencimiento como pagado; no mueve dinero.",
+            }
+          : {
+              title: "Editar el importe.",
+              description:
+                "Ajustá el monto previsto de este vencimiento y elegí qué hacer con los siguientes.",
+            }
       : {
           setup: {
             title: "Tu punto de partida.",
@@ -602,10 +609,28 @@ export function Dashboard({
               />
             )}
             {modal === "add-currency" && <AddCurrencyFields owned={owned} asOf={snapshot.asOf} />}
-            {modal && typeof modal === "object" && (
-              <ExistingPaymentFields modal={modal} asOf={snapshot.asOf} />
+            {modal &&
+              typeof modal === "object" &&
+              (modal.kind === "edit-expense" ? (
+                <EntryFields
+                  owned={owned}
+                  currency={currency}
+                  asOf={snapshot.asOf}
+                  expense={modal.expense}
+                />
+              ) : (
+                <ExistingPaymentFields modal={modal} asOf={snapshot.asOf} />
+              ))}
+            {!(
+              modal &&
+              typeof modal === "object" &&
+              modal.kind === "edit-expense" &&
+              modal.expense.imported
+            ) && (
+              <p className="field-hint">
+                Usá coma para decimales. CLP se registra en pesos enteros.
+              </p>
             )}
-            <p className="field-hint">Usá coma para decimales. CLP se registra en pesos enteros.</p>
             {error && (
               <p className="form-error" role="alert">
                 {error}
@@ -631,7 +656,9 @@ export function Dashboard({
                         ? "Agregar moneda"
                         : modal && typeof modal === "object" && modal.kind === "pay"
                           ? "Confirmar pago"
-                          : "Guardar"}
+                          : modal && typeof modal === "object" && modal.kind === "edit-expense"
+                            ? "Guardar cambios"
+                            : "Guardar"}
                 <ArrowRight />
               </Button>
             </div>

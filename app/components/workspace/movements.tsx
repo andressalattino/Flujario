@@ -1,11 +1,13 @@
-import { Search, ArrowLeftRight } from "lucide-react";
+import { Search, ArrowLeftRight, Pencil } from "lucide-react";
 import { Input } from "../ui/input";
+import { Button } from "../ui/button";
 import { Empty, EntriesTable } from "./shared";
 import type { Open } from "./types";
-import { entryAffectsCurrency, type Snapshot } from "~/domain/finance";
+import { entryAffectsCurrency, type Entry, type Snapshot } from "~/domain/finance";
 import type { Currency } from "~/domain/money";
 import { lazy, Suspense } from "react";
 const StatementTools = lazy(() => import("./statement-tools"));
+const canEditExpense = (entry: Entry) => entry.kind === "expense" && !entry.occurrenceId;
 export function Movements({
   snapshot,
   currency,
@@ -56,7 +58,25 @@ export function Movements({
           </label>
         </div>
         {entries.length ? (
-          <EntriesTable entries={entries} currency={currency} />
+          <EntriesTable
+            entries={entries}
+            currency={currency}
+            renderAction={
+              entries.some(canEditExpense)
+                ? (expense) =>
+                    canEditExpense(expense) && (
+                      <Button
+                        size="sm"
+                        variant="outline"
+                        aria-label={`Editar gasto: ${expense.description}`}
+                        onClick={() => open({ kind: "edit-expense", expense })}
+                      >
+                        <Pencil /> Editar
+                      </Button>
+                    )
+                : undefined
+            }
+          />
         ) : (
           <Empty
             icon={ArrowLeftRight}

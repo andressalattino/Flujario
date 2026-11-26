@@ -1,11 +1,20 @@
 import { entryDisplay, type Entry, type Payment } from "~/domain/finance";
+import type { ReactNode } from "react";
 import { formatMoney, type Currency } from "~/domain/money";
 import { EntryRate } from "./entry-rate";
 import { formatDate, frequencyLabels } from "~/domain/dates";
 import { Button } from "../ui/button";
 import type { Open } from "./types";
 
-export function MobileEntries({ entries, currency }: { entries: Entry[]; currency: Currency }) {
+export function MobileEntries({
+  entries,
+  currency,
+  renderAction,
+}: {
+  entries: Entry[];
+  currency: Currency;
+  renderAction?: (entry: Entry) => ReactNode;
+}) {
   return (
     <div className="mobile-data-list">
       {entries.map((entry) => {
@@ -25,6 +34,7 @@ export function MobileEntries({ entries, currency }: { entries: Entry[]; currenc
               {entry.category} · {formatDate(entry.date)} {entry.date.slice(0, 4)}
               {entry.occurrenceId ? " · Pago registrado" : ""}
             </p>
+            {renderAction?.(entry)}
           </article>
         );
       })}

@@ -3,7 +3,7 @@ import { testD1 } from "./helpers/d1";
 import { createDb, getSnapshot, performOperation } from "../app/db/repository.server";
 import { summarize } from "../app/domain/finance";
 import { today } from "../app/domain/dates";
-import type { Operation } from "../app/domain/validation";
+import { operationSchema, type Operation } from "../app/domain/validation";
 let store: ReturnType<typeof testD1>;
 let db: ReturnType<typeof createDb>;
 beforeEach(async () => {
@@ -23,6 +23,108 @@ const entry = (): Extract<Operation, { intent: "entry" }> => ({
   category: "Otros",
   date: today(),
 });
+const expenseEdit = (entryId: string, amount = "240,50") =>
+  operationSchema.parse({
+    intent: "edit-expense",
+    requestKey: crypto.randomUUID(),
+    entryId,
+    currency: "ARS",
+    amount,
+    description: "Suscripción corregida",
+    category: "Suscripciones",
+    date: "2026-11-02",
+  }) as Extract<Operation, { intent: "edit-expense" }>;
+
+it("edita un solo gasto, recalcula su saldo y conserva el historial ante reintentos", async () => {
+  await performOperation(db, "ana", { ...entry(), date: "2026-11-01" });
+  const original = (await getSnapshot(db, "ana")).entries[0]!;
+  const firstEdit = expenseEdit(original.id);
+  await Promise.all([
+    performOperation(db, "ana", firstEdit),
+    performOperation(db, "ana", firstEdit),
+  ]);
+  const secondEdit = expenseEdit(original.id, "250,50");
+  await performOperation(db, "ana", secondEdit);
+  await performOperation(db, "ana", firstEdit);
+
+  const snapshot = await getSnapshot(db, "ana");
+  expect(snapshot.entries).toHaveLength(1);
+  expect(snapshot.entries[0]).toMatchObject({
+    id: original.id,
+    amountMinor: 25050,
+    date: "2026-11-02",
+    description: "Suscripción corregida",
+    category: "Suscripciones",
+    imported: false,
+  });
+  expect(summarize(snapshot, "ARS").balance).toBe(74950);
+  expect(summarize(snapshot, "USD").balance).toBe(5000);
+  expect(
+    store.sqlite
+      .prepare(
+        `SELECT previous_amount_cents, amount_cents, previous_category, previous_date, date
+    FROM expense_edits WHERE entry_id=? ORDER BY previous_amount_cents`,
+      )
+      .all(original.id),
+  ).toEqual([
+    {
+      previous_amount_cents: 15000,
+      amount_cents: 24050,
+      previous_category: "Otros",
+      previous_date: "2026-11-01",
+      date: "2026-11-02",
+    },
+    {
+      previous_amount_cents: 24050,
+      amount_cents: 25050,
+      previous_category: "Suscripciones",
+      previous_date: "2026-11-02",
+      date: "2026-11-02",
+    },
+  ]);
+  await expect(performOperation(db, "ana", { ...firstEdit, amount: 1 })).rejects.toMatchObject({
+    status: 409,
+  });
+});
+
+it("rechaza edición ajena, cambios de moneda, fechas inválidas para el saldo e ingresos", async () => {
+  await performOperation(db, "ana", { ...entry(), date: "2026-11-02" });
+  const expense = (await getSnapshot(db, "ana")).entries[0]!;
+  const edit = expenseEdit(expense.id);
+  await expect(performOperation(db, "bea", edit)).rejects.toMatchObject({ status: 404 });
+  await expect(performOperation(db, "ana", { ...edit, currency: "USD" })).rejects.toMatchObject({
+    status: 404,
+  });
+  await expect(performOperation(db, "ana", { ...edit, date: "2200-01-01" })).rejects.toThrow(
+    "futura",
+  );
+  store.sqlite
+    .prepare("UPDATE accounts SET opening_date='2026-11-02' WHERE id=?")
+    .run(expense.accountId);
+  await expect(performOperation(db, "ana", { ...edit, date: "2026-11-01" })).rejects.toThrow(
+    "saldo inicial",
+  );
+  await performOperation(db, "ana", { ...entry(), kind: "income" });
+  const income = (await getSnapshot(db, "ana")).entries.find(
+    (movement) => movement.kind === "income",
+  )!;
+  await expect(performOperation(db, "ana", expenseEdit(income.id))).rejects.toMatchObject({
+    status: 404,
+  });
+  expect(store.sqlite.prepare("SELECT count(*) n FROM expense_edits").get()).toEqual({ n: 0 });
+});
+
+it("revierte el historial si falla la actualización del gasto", async () => {
+  await performOperation(db, "ana", entry());
+  const original = (await getSnapshot(db, "ana")).entries[0]!;
+  store.sqlite.exec(
+    "CREATE TRIGGER qa_stop_expense_edit BEFORE UPDATE ON entries BEGIN SELECT RAISE(ABORT, 'qa'); END;",
+  );
+  await expect(performOperation(db, "ana", expenseEdit(original.id))).rejects.toThrow();
+  expect((await getSnapshot(db, "ana")).entries[0]).toEqual(original);
+  expect(store.sqlite.prepare("SELECT count(*) n FROM expense_edits").get()).toEqual({ n: 0 });
+});
+
 describe("Persistencia financiera y aislamiento de usuarios", () => {
   it("guarda un movimiento y no lo expone a otra persona", async () => {
     await performOperation(db, "ana", entry());
@@ -92,6 +194,9 @@ describe("Persistencia financiera y aislamiento de usuarios", () => {
     expect(after.payments[0]?.paid).toBe(true);
     expect(after.entries).toHaveLength(1);
     expect(summarize(after, "ARS")).toMatchObject({ balance: 80000, expenses: 20000, pending: 0 });
+    await expect(performOperation(db, "ana", expenseEdit(after.entries[0]!.id))).rejects.toThrow(
+      "pago registrado",
+    );
     await expect(
       performOperation(db, "ana", { ...payment, requestKey: crypto.randomUUID() }),
     ).rejects.toMatchObject({ status: 409 });

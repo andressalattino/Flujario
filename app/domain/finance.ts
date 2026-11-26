@@ -23,6 +23,7 @@ export interface Entry {
   category: string;
   date: string;
   occurrenceId?: string | null;
+  imported?: boolean;
   targetCurrency?: Currency | null;
   targetAmountMinor?: number | null;
   exchangeRate?: string | null;
